@@ -5,7 +5,7 @@ import { classNames } from "../utils/classNames";
 
 const Management = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
 
   // Mock data for management items with detailed information
   const managementItems = [

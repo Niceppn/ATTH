@@ -80,7 +80,7 @@ const TestResults = ({ projectData, onBack }) => {
       result: "fail",
       severity: "High",
       completedDate: "2024-01-12",
-      tester: "นางส��ว ตรวจ ฟอร์ม",
+      tester: "นางสาว ตรวจ ฟอร์ม",
       duration: "40 นาที",
       notes: "ไม่มีการแจ้งเตือนผิดพลาดที่ชัดเจน ควรเพิ่ม error message",
       screenshots: ["form-test-1.png", "form-test-2.png"],
@@ -194,7 +194,7 @@ const TestResults = ({ projectData, onBack }) => {
       completedDate: "2024-01-05",
       tester: "นางสาว ลิงก์ ชัดเจน",
       duration: "30 นาที",
-      notes: "ลิงก์ทุกตั��มีคำอธิบายที่ชัดเจนและเข้าใจได้",
+      notes: "ลิงก์ทุกตัวมีคำอธิบายที่ชัดเจนและเข้าใจได้",
       screenshots: ["link-test-1.png"],
       wcagCriteria: "WCAG 2.1 AA - 2.4.4",
     },
@@ -364,7 +364,7 @@ const TestResults = ({ projectData, onBack }) => {
                   </div>
                   <div className="stat-info">
                     <h3 className="stat-number">{passCount}</h3>
-                    <p className="stat-label">ผ่���นการทดสอบ</p>
+                    <p className="stat-label">ผ่านการทดสอบ</p>
                   </div>
                 </Card.Body>
               </Card>

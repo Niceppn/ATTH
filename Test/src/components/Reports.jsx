@@ -16,7 +16,7 @@ const Reports = ({ onNavigateToTestResults }) => {
   const reportProjects = [
     {
       id: 1,
-      title: "เว็บไซต์ใช้สอบการกรุง��ทพ",
+      title: "เว็บไซต์ใช้สอบการกรุงเทพ",
       subtitle: "Website",
       type: "website",
       completionRate: 75,
@@ -74,7 +74,7 @@ const Reports = ({ onNavigateToTestResults }) => {
         "การทดสอบสิ่งอำนวยการเดิน",
         "การทดสอบลิฟต์และปุ่มไฟ",
         "การทดสอบห้องน้ำและห้องครัว",
-        "การทดส��บป้ายบอกทางและการแสดงผล",
+        "การทดสอบป้ายบอกทางและการแสดงผล",
       ],
     },
   ];
@@ -308,7 +308,7 @@ const Reports = ({ onNavigateToTestResults }) => {
         <div className="reports-header">
           <h2 className="reports-title">รายงานการทดสอบ</h2>
           <p className="reports-subtitle">
-            เลือกโครงการเพื่อดูรายงานผลการทดสอบที่ค���บถ้วนและละเอียด
+            เลือกโครงการเพื่อดูรายงานผลการทดสอบที่ครบถ้วนและละเอียด
           </p>
         </div>
 
