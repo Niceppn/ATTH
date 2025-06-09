@@ -240,7 +240,7 @@ const ProjectSelection = ({ onProjectSelect }) => {
     <Container fluid className="project-selection-container">
       <div className="project-selection-content">
         <div className="project-selection-header">
-          <h2 className="project-selection-title">All Test Case</h2>
+          <h2 className="project-selection-title">คำขอทดสอบทั้งหมด</h2>
           <p className="project-selection-subtitle">
             เลือกโครงการที่ต้องการดูผลการทดสอบรายละเอียด
           </p>
