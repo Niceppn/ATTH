@@ -17,6 +17,9 @@ const Testers = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedTester, setSelectedTester] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedTestSteps, setSelectedTestSteps] = useState([]);
 
   // Sample testers data
   const testers = [
@@ -109,6 +112,27 @@ const Testers = () => {
     },
   ];
 
+  // Sample test requests data for assignment
+  const testRequests = [
+    {
+      id: "TR-2024-001",
+      title: "การทดสอบ Mobile Banking Application",
+      testSteps: [
+        { id: 1, name: "ทดสอบการเข้าถึงด้วย Screen Reader", status: "pending" },
+        { id: 2, name: "ทดสอบการนำทางด้วยคีย์บอร์ด", status: "pending" },
+        { id: 3, name: "ทดสอบความคมชัดของสี", status: "pending" }
+      ]
+    },
+    {
+      id: "TR-2024-002",
+      title: "การทดสอบ E-Government Portal",
+      testSteps: [
+        { id: 4, name: "ทดสอบการเข้าถึงตาม WCAG 2.1", status: "pending" },
+        { id: 5, name: "ทดสอบการทำงานบนหลายเบราว์เซอร์", status: "pending" }
+      ]
+    }
+  ];
+
   const departments = [
     "all",
     "Accessibility Testing",
@@ -178,25 +202,20 @@ const Testers = () => {
                       onChange={(e) => setSearchTerm(e.target.value)}
                       className="search-input-custom"
                     />
-                    <Button variant="outline-primary">
+                    <Button variant="outline-primary" className="search-btn">
                       <svg
-                        width="16"
-                        height="16"
+                        width="20"
+                        height="20"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <circle
-                          cx="11"
-                          cy="11"
-                          r="8"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        />
                         <path
-                          d="M21 21L16.65 16.65"
+                          d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
                           stroke="currentColor"
                           strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         />
                       </svg>
                     </Button>
@@ -304,8 +323,19 @@ const Testers = () => {
                         variant="outline-primary"
                         size="sm"
                         onClick={() => handleTesterClick(tester)}
+                        className="me-2"
                       >
                         ดูรายละเอียด
+                      </Button>
+                      <Button
+                        variant="outline-success"
+                        size="sm"
+                        onClick={() => {
+                          setSelectedTester(tester);
+                          setShowAssignModal(true);
+                        }}
+                      >
+                        มอบหมายงาน
                       </Button>
                     </div>
                   </td>
@@ -463,6 +493,86 @@ const Testers = () => {
             ยกเลิก
           </Button>
           <Button variant="primary">บันทึก</Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Assign Test Steps Modal */}
+      <Modal
+        show={showAssignModal}
+        onHide={() => setShowAssignModal(false)}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>มอบหมายงานทดสอบ</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTester && (
+            <div className="assign-test-steps">
+              <div className="tester-info mb-4">
+                <h6>ผู้ทดสอบ: {selectedTester.name}</h6>
+                <p className="text-muted mb-0">แผนก: {selectedTester.department}</p>
+              </div>
+
+              <Form.Group className="mb-4">
+                <Form.Label>เลือกโครงการ</Form.Label>
+                <Form.Select
+                  value={selectedProject}
+                  onChange={(e) => setSelectedProject(e.target.value)}
+                >
+                  <option value="">เลือกโครงการ</option>
+                  {testRequests.map((project) => (
+                    <option key={project.id} value={project.id}>
+                      {project.title}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+
+              {selectedProject && (
+                <div className="test-steps-list">
+                  <h6 className="mb-3">ขั้นตอนการทดสอบ</h6>
+                  {testRequests
+                    .find((p) => p.id === selectedProject)
+                    ?.testSteps.map((step) => (
+                      <Form.Check
+                        key={step.id}
+                        type="checkbox"
+                        id={`step-${step.id}`}
+                        label={step.name}
+                        checked={selectedTestSteps.includes(step.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedTestSteps([...selectedTestSteps, step.id]);
+                          } else {
+                            setSelectedTestSteps(
+                              selectedTestSteps.filter((id) => id !== step.id)
+                            );
+                          }
+                        }}
+                        className="mb-2"
+                      />
+                    ))}
+                </div>
+              )}
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAssignModal(false)}>
+            ยกเลิก
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              // Handle assignment logic here
+              console.log("Assigning steps:", selectedTestSteps);
+              setShowAssignModal(false);
+            }}
+            disabled={!selectedProject || selectedTestSteps.length === 0}
+          >
+            มอบหมายงาน
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

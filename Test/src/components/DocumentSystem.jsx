@@ -10,6 +10,7 @@ import {
   Modal,
   ProgressBar,
   Dropdown,
+  InputGroup,
 } from "react-bootstrap";
 
 const DocumentSystem = () => {
@@ -221,12 +222,18 @@ const DocumentSystem = () => {
       {/* Storage Stats */}
       <Row className="mb-4">
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon storage">📦</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-primary">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{documents.length}</div>
+                  <div className="stat-value">{documents.length}</div>
                   <div className="stat-label">ไฟล์ทั้งหมด</div>
                 </div>
               </div>
@@ -234,12 +241,18 @@ const DocumentSystem = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon storage">💾</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-success">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{getFileSize(totalSize)}</div>
+                  <div className="stat-value">{getFileSize(totalSize)}</div>
                   <div className="stat-label">พื้นที่ใช้งาน</div>
                 </div>
               </div>
@@ -247,17 +260,17 @@ const DocumentSystem = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon storage">📥</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-info">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" fill="#E8F0FE"/>
+                    <rect x="10" y="7" width="4" height="8" rx="2" fill="#4285F4"/>
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">
-                    {
-                      documents.filter((d) => d.uploadDate === "2024-01-15")
-                        .length
-                    }
-                  </div>
+                  <div className="stat-value">{documents.filter((d) => d.uploadDate === "2024-01-15").length}</div>
                   <div className="stat-label">อัปโหลดวันนี้</div>
                 </div>
               </div>
@@ -265,14 +278,18 @@ const DocumentSystem = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon storage">⏳</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-warning">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#FFF4E5"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#FBBC05"/>
+                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#FBBC05" strokeWidth="2"/>
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">
-                    {documents.filter((d) => d.status === "pending").length}
-                  </div>
+                  <div className="stat-value">{documents.filter((d) => d.status === "pending").length}</div>
                   <div className="stat-label">รออนุมัติ</div>
                 </div>
               </div>
@@ -284,20 +301,33 @@ const DocumentSystem = () => {
       {/* Controls */}
       <Row className="mb-4">
         <Col lg={8}>
-          <Card className="controls-card">
+          <Card className="filter-card">
             <Card.Body>
               <Row className="align-items-end">
-                <Col md={5} className="mb-3">
+                <Col md={6} className="mb-3">
                   <Form.Label>ค้นหาไฟล์</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="ค้นหาชื่อไฟล์หรือโครงการ..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input-custom"
-                  />
+                  <InputGroup>
+                    <Form.Control
+                      type="text"
+                      placeholder="ค้นหาชื่อไฟล์หรือโครงการ..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="search-input-custom"
+                    />
+                    <Button variant="outline-primary" className="search-btn">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Button>
+                  </InputGroup>
                 </Col>
-                <Col md={3} className="mb-3">
+                <Col md={4} className="mb-3">
                   <Form.Label>หมวดหมู่</Form.Label>
                   <Form.Select
                     value={selectedCategory}
@@ -310,29 +340,6 @@ const DocumentSystem = () => {
                       </option>
                     ))}
                   </Form.Select>
-                </Col>
-                <Col md={2} className="mb-3">
-                  <Form.Label>การแสดงผล</Form.Label>
-                  <div className="view-toggle">
-                    <Button
-                      variant={
-                        viewMode === "grid" ? "primary" : "outline-primary"
-                      }
-                      size="sm"
-                      onClick={() => setViewMode("grid")}
-                    >
-                      ⊞
-                    </Button>
-                    <Button
-                      variant={
-                        viewMode === "list" ? "primary" : "outline-primary"
-                      }
-                      size="sm"
-                      onClick={() => setViewMode("list")}
-                    >
-                      ☰
-                    </Button>
-                  </div>
                 </Col>
                 <Col md={2} className="mb-3">
                   <Button

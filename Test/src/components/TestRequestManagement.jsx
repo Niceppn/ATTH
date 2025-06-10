@@ -91,7 +91,7 @@ const TestRequestManagement = () => {
     {
       id: "TR-2024-004",
       title: "การทดสอบ Healthcare Management System",
-      client: "โรงพยาบาลราชวิถี",
+      client: "โรงพยาบาลราวิถี",
       requestDate: "2024-01-08",
       dueDate: "2024-03-08",
       status: "planning",
@@ -197,8 +197,23 @@ const TestRequestManagement = () => {
   const getProgressColor = (progress) => {
     if (progress >= 80) return "success";
     if (progress >= 50) return "primary";
-    if (progress >= 25) return "warning";
+    if (progress >= 30) return "warning";
     return "danger";
+  };
+
+  const getStatusText = (type) => {
+    switch (type) {
+      case "total":
+        return "ทั้งหมด";
+      case "completed":
+        return "เสร็จสิ้น";
+      case "in-progress":
+        return "ดำเนินการ";
+      case "pending":
+        return "รอดำเนิน";
+      default:
+        return "ทั้งหมด";
+    }
   };
 
   const handleRequestClick = (request) => {
@@ -229,53 +244,147 @@ const TestRequestManagement = () => {
       </div>
 
       {/* Statistics Cards */}
-      <Row className="mb-4">
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+      <Row className="dashboard-stats">
+        <Col lg={3} md={6} className="mb-4">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon test-request">📋</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-primary">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M12 12H15M12 16H15M9 12H9.01M9 16H9.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{totalRequests}</div>
+                  <div className="stat-value">{totalRequests}</div>
                   <div className="stat-label">คำขอทั้งหมด</div>
                 </div>
               </div>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+        <Col lg={3} md={6} className="mb-4">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon test-request">✅</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-success">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.7088 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4898 2.02168 11.3363C2.16356 9.18288 2.99721 7.13471 4.39828 5.49618C5.79935 3.85766 7.69279 2.71539 9.79619 2.24618C11.8996 1.77697 14.1003 1.98981 16.07 2.85999"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M22 4L12 14.01L9 11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{completedRequests}</div>
+                  <div className="stat-value">{completedRequests}</div>
                   <div className="stat-label">เสร็จสิ้น</div>
                 </div>
               </div>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+        <Col lg={3} md={6} className="mb-4">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon test-request">⚡</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-warning">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12 6V12L16 14"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{inProgressRequests}</div>
+                  <div className="stat-value">{inProgressRequests}</div>
                   <div className="stat-label">กำลังดำเนินการ</div>
                 </div>
               </div>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+        <Col lg={3} md={6} className="mb-4">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon test-request">⏳</div>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-info">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12 16V12"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12 8H12.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
                 <div className="stat-info">
-                  <div className="stat-number">{pendingRequests}</div>
+                  <div className="stat-value">{pendingRequests}</div>
                   <div className="stat-label">รอดำเนินการ</div>
                 </div>
               </div>

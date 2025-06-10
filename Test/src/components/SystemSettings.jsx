@@ -208,7 +208,7 @@ const SystemSettings = () => {
       <div className="settings-header">
         <h1 className="settings-title">ตั้งค่าระบบ</h1>
         <p className="settings-subtitle">
-          จัดการหมวดหมู่การทดสอบ สิ่งอำนวยความสะดวก และเทมเพลตฟอร์ม
+          จัดการหมวดหมู่การทดสอบและเทมเพลตฟอร์ม
         </p>
       </div>
 
@@ -290,107 +290,6 @@ const SystemSettings = () => {
                           <Button
                             variant="outline-danger"
                             size="sm"
-                            className="ms-2"
-                          >
-                            ลบ
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        </Tab>
-
-        {/* Facilities Tab */}
-        <Tab eventKey="facilities" title="สิ่งอำนวยความสะดวก">
-          <Card className="settings-card">
-            <Card.Header className="card-header-settings">
-              <div className="header-with-actions">
-                <h5 className="card-title">สิ่งอำนวยความสะดวก</h5>
-                <Button
-                  variant="light"
-                  onClick={() => handleAddNew("facility")}
-                >
-                  เพิ่มสิ่งอำนวยความสะดวก
-                </Button>
-              </div>
-            </Card.Header>
-            <Card.Body className="p-0">
-              <Table responsive className="settings-table mb-0">
-                <thead>
-                  <tr>
-                    <th>ชื่อ</th>
-                    <th>ประเภท</th>
-                    <th>ความจุ</th>
-                    <th>อุปกรณ์</th>
-                    <th>สถานที่</th>
-                    <th>สถานะ</th>
-                    <th>การจอง</th>
-                    <th>การดำเนินการ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {facilities.map((facility) => (
-                    <tr key={facility.id}>
-                      <td>
-                        <div className="facility-name">
-                          <span className="facility-icon">
-                            {getFacilityTypeIcon(facility.type)}
-                          </span>
-                          {facility.name}
-                        </div>
-                      </td>
-                      <td>
-                        <Badge bg="info">
-                          {facility.type === "testing-room"
-                            ? "ห้องทดสอบ"
-                            : facility.type === "meeting-room"
-                              ? "ห้องประชุม"
-                              : facility.type === "equipment"
-                                ? "อุปกรณ์"
-                                : "เทคโนโลยีช่วยเหลือ"}
-                        </Badge>
-                      </td>
-                      <td>{facility.capacity} คน</td>
-                      <td>
-                        <div className="equipment-list">
-                          {facility.equipment.slice(0, 2).map((eq, idx) => (
-                            <Badge
-                              key={idx}
-                              bg="secondary"
-                              className="me-1 mb-1"
-                            >
-                              {eq}
-                            </Badge>
-                          ))}
-                          {facility.equipment.length > 2 && (
-                            <Badge bg="light" className="text-dark">
-                              +{facility.equipment.length - 2}
-                            </Badge>
-                          )}
-                        </div>
-                      </td>
-                      <td>{facility.location}</td>
-                      <td>{getStatusBadge(facility.status)}</td>
-                      <td>
-                        <Badge bg="primary">{facility.bookings} ครั้ง</Badge>
-                      </td>
-                      <td>
-                        <div className="action-buttons">
-                          <Button
-                            variant="outline-primary"
-                            size="sm"
-                            onClick={() => handleEdit("facility", facility)}
-                          >
-                            แก้ไข
-                          </Button>
-                          <Button
-                            variant="outline-danger"
-                            size="sm"
-                            className="ms-2"
                           >
                             ลบ
                           </Button>
@@ -476,13 +375,9 @@ const SystemSettings = () => {
                       </td>
                       <td>
                         <div className="action-buttons">
-                          <Button variant="outline-success" size="sm">
-                            ดาวน์โหลด
-                          </Button>
                           <Button
                             variant="outline-primary"
                             size="sm"
-                            className="ms-2"
                             onClick={() => handleEdit("template", template)}
                           >
                             แก้ไข
@@ -490,9 +385,14 @@ const SystemSettings = () => {
                           <Button
                             variant="outline-danger"
                             size="sm"
-                            className="ms-2"
                           >
                             ลบ
+                          </Button>
+                          <Button
+                            variant="outline-info"
+                            size="sm"
+                          >
+                            ดูตัวอย่าง
                           </Button>
                         </div>
                       </td>
@@ -596,11 +496,7 @@ const SystemSettings = () => {
         <Modal.Header closeButton>
           <Modal.Title>
             {selectedItem ? "แก้ไข" : "เพิ่มใหม่"}
-            {modalType === "category"
-              ? "หมวดหมู่การทดสอบ"
-              : modalType === "facility"
-                ? "สิ่งอำนวยความสะดวก"
-                : "เทมเพลตฟอร์ม"}
+            {modalType === "category" ? "หมวดหมู่การทดสอบ" : "เทมเพลตฟอร์ม"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -637,57 +533,6 @@ const SystemSettings = () => {
                     type="checkbox"
                     label="เปิดใช้งาน"
                     defaultChecked={selectedItem?.isActive ?? true}
-                  />
-                </div>
-              </>
-            )}
-
-            {modalType === "facility" && (
-              <>
-                <Row>
-                  <Col md={8} className="mb-3">
-                    <Form.Label>ชื่อสิ่งอำนวยความสะดวก</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="กรอกชื่อ"
-                      defaultValue={selectedItem?.name || ""}
-                    />
-                  </Col>
-                  <Col md={4} className="mb-3">
-                    <Form.Label>ประเภท</Form.Label>
-                    <Form.Select defaultValue={selectedItem?.type || ""}>
-                      <option value="">เลือกประเภท</option>
-                      <option value="testing-room">ห้องทดสอบ</option>
-                      <option value="meeting-room">ห้องประชุม</option>
-                      <option value="equipment">อุปกรณ์</option>
-                      <option value="assistive-tech">เทคโนโลยีช่วยเหลือ</option>
-                    </Form.Select>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={6} className="mb-3">
-                    <Form.Label>ความจุ (คน)</Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="0"
-                      defaultValue={selectedItem?.capacity || ""}
-                    />
-                  </Col>
-                  <Col md={6} className="mb-3">
-                    <Form.Label>สถานที่</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="เช่น ชั้น 3 ห้อง 301"
-                      defaultValue={selectedItem?.location || ""}
-                    />
-                  </Col>
-                </Row>
-                <div className="mb-3">
-                  <Form.Label>อุปกรณ์</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="รายการอุปกรณ์ (คั่นด้วยเครื่องหมายคอมมา)"
-                    defaultValue={selectedItem?.equipment?.join(", ") || ""}
                   />
                 </div>
               </>

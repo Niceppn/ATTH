@@ -267,9 +267,11 @@ const CustomerManagement = () => {
         <Col lg={3} md={6} className="mb-3">
           <Card className="stat-card">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon customer">👥</div>
-                <div className="stat-info">
+              <div className="stat-content-horizontal">
+                <div className="stat-icon-circle bg-teal">
+                  <span role="img" aria-label="customer">👥</span>
+                </div>
+                <div>
                   <div className="stat-number">{customers.length}</div>
                   <div className="stat-label">ลูกค้าทั้งหมด</div>
                 </div>
@@ -280,9 +282,11 @@ const CustomerManagement = () => {
         <Col lg={3} md={6} className="mb-3">
           <Card className="stat-card">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon customer">📋</div>
-                <div className="stat-info">
+              <div className="stat-content-horizontal">
+                <div className="stat-icon-circle bg-green">
+                  <span role="img" aria-label="contract">📋</span>
+                </div>
+                <div>
                   <div className="stat-number">{activeContracts}</div>
                   <div className="stat-label">สัญญาใช้งาน</div>
                 </div>
@@ -293,9 +297,11 @@ const CustomerManagement = () => {
         <Col lg={3} md={6} className="mb-3">
           <Card className="stat-card">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon customer">💰</div>
-                <div className="stat-info">
+              <div className="stat-content-horizontal">
+                <div className="stat-icon-circle bg-orange">
+                  <span role="img" aria-label="revenue">💰</span>
+                </div>
+                <div>
                   <div className="stat-number">
                     {(totalRevenue / 1000000).toFixed(1)}M
                   </div>
@@ -308,9 +314,11 @@ const CustomerManagement = () => {
         <Col lg={3} md={6} className="mb-3">
           <Card className="stat-card">
             <Card.Body>
-              <div className="stat-content">
-                <div className="stat-icon customer">⭐</div>
-                <div className="stat-info">
+              <div className="stat-content-horizontal">
+                <div className="stat-icon-circle bg-blue">
+                  <span role="img" aria-label="satisfaction">⭐</span>
+                </div>
+                <div>
                   <div className="stat-number">4.7</div>
                   <div className="stat-label">ความพึงพอใจเฉลี่ย</div>
                 </div>
