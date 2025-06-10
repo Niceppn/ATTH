@@ -82,7 +82,7 @@ function App() {
                 </svg>
               </button>
               <div className="mobile-logo">
-                <span className="mobile-title">UTT</span>
+                <span className="mobile-title">ATTH</span>
               </div>
             </div>
 

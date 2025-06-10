@@ -477,8 +477,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
               </svg>
             </div>
             <div className="logo-text">
-              <div className="logo-title">UTT</div>
-              <div className="logo-subtitle">Universal Test Tool</div>
+              <div className="logo-title">ATTH</div>
+              <div className="logo-subtitle">Assistive Tech Test Hub</div>
             </div>
           </div>
 
