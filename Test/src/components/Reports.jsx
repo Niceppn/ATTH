@@ -447,7 +447,7 @@ const Reports = ({ onNavigateToTestResults }) => {
                       className="action-btn download-btn"
                       onClick={() => handleDownloadReport(report)}
                     >
-                      ดาวน์โหลดตัวอย่าง
+                      ดาวน์โหลดรายงาน
                     </Button>
                   </div>
                 </Card.Body>

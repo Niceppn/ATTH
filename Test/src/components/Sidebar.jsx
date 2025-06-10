@@ -1,9 +1,11 @@
 import React from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { classNames } from "../utils/classNames";
 import { useAuth } from "../context/AuthContext";
 
-const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
+const Sidebar = ({ isOpen, onToggle }) => {
   const { logout } = useAuth();
+  const location = useLocation();
 
   const navItems = [
     // Core Workflow - Primary Functions
@@ -11,29 +13,25 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
       id: "dashboard",
       label: "Dashboard",
       icon: "dashboard",
-      active: currentPage === "dashboard",
-      page: "dashboard",
+      path: "/dashboard",
     },
     {
       id: "test-requests",
       label: "จัดการคำขอทดสอบ",
       icon: "clipboard-check",
-      active: currentPage === "test-requests",
-      page: "test-requests",
+      path: "/test-requests",
     },
     {
       id: "testers",
       label: "ผู้ทดสอบ",
       icon: "users",
-      active: currentPage === "testers",
-      page: "testers",
+      path: "/testers",
     },
     {
       id: "field-calendar",
       label: "ปฏิทินงานภาคสนาม",
       icon: "calendar",
-      active: currentPage === "field-calendar",
-      page: "field-calendar",
+      path: "/field-calendar",
     },
 
     // Results & Documentation
@@ -41,15 +39,13 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
       id: "document-system",
       label: "ระบบจัดเก็บเอกสาร/ฟอร์ม",
       icon: "folder",
-      active: currentPage === "document-system",
-      page: "document-system",
+      path: "/document-system",
     },
     {
       id: "testcase",
       label: "ผลการทดสอบ / รายงาน",
       icon: "search",
-      active: currentPage === "testcase",
-      page: "testcase",
+      path: "/testcase",
     },
 
     // Management Functions
@@ -57,15 +53,13 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
       id: "customer-management",
       label: "จัดการลูกค้า/องค์กร",
       icon: "building",
-      active: currentPage === "customer-management",
-      page: "customer-management",
+      path: "/customer-management",
     },
     {
       id: "notifications",
       label: "แจ้งเตือน & ติดต่อกลับ",
       icon: "bell",
-      active: currentPage === "notifications",
-      page: "notifications",
+      path: "/notifications",
     },
 
     // Administrative Functions
@@ -73,15 +67,13 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
       id: "system-settings",
       label: "ตั้งค่าระบบ",
       icon: "cog",
-      active: currentPage === "system-settings",
-      page: "system-settings",
+      path: "/system-settings",
     },
     {
       id: "user-permissions",
       label: "สิทธิ์ผู้ใช้งาน",
       icon: "shield",
-      active: currentPage === "user-permissions",
-      page: "user-permissions",
+      path: "/user-permissions",
     },
   ];
 
@@ -434,12 +426,6 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
     return icons[iconName] || icons.dashboard;
   };
 
-  const handleNavClick = (item) => {
-    if (onNavigate && item.page) {
-      onNavigate(item.page);
-    }
-  };
-
   return (
     <>
       <aside className={classNames("sidebar", isOpen && "sidebar-open")}>
@@ -531,20 +517,19 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
           <ul className="nav-list">
             {navItems.map((item) => (
               <li key={item.id} className="nav-item">
-                <a
-                  href="#"
-                  className={classNames(
-                    "nav-link",
-                    item.active && "nav-link-active",
-                  )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item);
-                  }}
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    classNames(
+                      "nav-link",
+                      isActive ? "nav-link-active" : ""
+                    )
+                  }
+                  onClick={() => onToggle(false)}
                 >
                   <span className="nav-icon">{getIcon(item.icon)}</span>
                   <span className="nav-text">{item.label}</span>
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -553,13 +538,9 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
         <div className="sidebar-footer">
           {/* Logout Section */}
           <div className="logout-section">
-            <a
-              href="#"
+            <button
               className="nav-link logout-link"
-              onClick={(e) => {
-                e.preventDefault();
-                logout();
-              }}
+              onClick={logout}
             >
               <span className="nav-icon">
                 <svg
@@ -593,7 +574,7 @@ const Sidebar = ({ isOpen, onToggle, currentPage, onNavigate }) => {
                 </svg>
               </span>
               <span className="nav-text">ออกจากระบบ</span>
-            </a>
+            </button>
           </div>
         </div>
       </aside>
