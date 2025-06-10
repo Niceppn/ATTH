@@ -50,7 +50,7 @@ const UserPermissions = () => {
     {
       id: 3,
       username: "research.wichai",
-      fullName: "วิชัย นัก��ิจัย",
+      fullName: "วิชัย นักวิจัย",
       email: "wichai@company.com",
       role: "researcher",
       department: "Research",
@@ -91,7 +91,7 @@ const UserPermissions = () => {
       id: 1,
       name: "admin",
       displayName: "ผู้ดูแลระบบ",
-      description: "มีสิทธิ์เต็มในการจัดการระ���บทั้งหมด",
+      description: "มีสิทธิ์เต็มในการจัดการระบบทั้งหมด",
       permissions: [
         "all",
         "manage_users",
@@ -183,7 +183,7 @@ const UserPermissions = () => {
         {
           key: "backup_restore",
           name: "สำรองข้อมูล",
-          description: "สำร���งและกู้คืนข้อมูล",
+          description: "สำรองและกู้คืนข้อมูล",
         },
         {
           key: "security_settings",
@@ -260,7 +260,7 @@ const UserPermissions = () => {
         },
         {
           key: "use_tools",
-          name: "ใช้เครื่องมื���",
+          name: "ใช้เครื่องมือ",
           description: "เข้าถึงเครื่องมือทดสอบ",
         },
       ],
