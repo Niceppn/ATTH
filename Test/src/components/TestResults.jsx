@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   Container,
   Row,
@@ -19,6 +20,12 @@ const TestResults = ({ projectData, onBack }) => {
   const [selectedTestCase, setSelectedTestCase] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { projectId } = useParams();
+
+  // Get project data from navigation state or use default/props
+  const currentProjectData = location.state?.projectData || projectData;
 
   // Mock detailed test cases for the selected project
   const detailedTestCases = [
@@ -303,7 +310,7 @@ const TestResults = ({ projectData, onBack }) => {
             <Button
               variant="outline-primary"
               className="back-btn"
-              onClick={onBack}
+              onClick={() => (onBack ? onBack() : navigate("/reports"))}
             >
               <svg
                 width="20"
@@ -333,10 +340,11 @@ const TestResults = ({ projectData, onBack }) => {
 
           <div className="project-info">
             <h2 className="project-title">
-              {projectData?.title || "รายการผลการทดสอบ"}
+              {currentProjectData?.title || "รายการผลการทดสอบ"}
             </h2>
             <p className="project-subtitle">
-              {projectData?.subtitle || "รายละเอียดผลการทดสอบแต่ละรายการ"}
+              {currentProjectData?.subtitle ||
+                "รายละเอียดผลการทดสอบแต่ละรายการ"}
             </p>
           </div>
 

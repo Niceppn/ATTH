@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Row,
@@ -11,6 +12,7 @@ import {
 
 const Reports = ({ onNavigateToTestResults }) => {
   const [selectedReport, setSelectedReport] = useState(null);
+  const navigate = useNavigate();
 
   // Project data for reports (same as TestResults)
   const reportProjects = [
@@ -291,15 +293,14 @@ const Reports = ({ onNavigateToTestResults }) => {
   const handleViewDetails = (report) => {
     console.log("Viewing details for:", report.title);
     setSelectedReport(report);
-    // Call parent navigation function to show TestResults page
-    if (onNavigateToTestResults) {
-      onNavigateToTestResults(report);
-    }
+    // Navigate to TestResults page with project ID
+    navigate(`/testresults/${report.id}`, { state: { projectData: report } });
   };
 
   const handleDownloadReport = (report) => {
     console.log("Downloading report:", report.title);
-    // Implement download functionality
+    // Navigate to PDF download page with project data
+    navigate(`/pdf-download/${report.id}`, { state: { projectData: report } });
   };
 
   return (

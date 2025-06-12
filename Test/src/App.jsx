@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
 import TestRequestManagement from "./components/TestRequestManagement";
@@ -8,6 +13,7 @@ import ProjectSelection from "./components/ProjectSelection";
 import Management from "./components/Management";
 import Reports from "./components/Reports";
 import TestResults from "./components/TestResults";
+import PdfDownload from "./components/PdfDownload";
 import Notifications from "./components/Notifications";
 import Testers from "./components/Testers";
 import FieldCalendar from "./components/FieldCalendar";
@@ -30,10 +36,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="app-layout">
-          <Sidebar
-            isOpen={sidebarOpen}
-            onToggle={toggleSidebar}
-          />
+          <Sidebar isOpen={sidebarOpen} onToggle={toggleSidebar} />
 
           {/* Mobile overlay with AST TestHub styling */}
           {sidebarOpen && (
@@ -90,20 +93,39 @@ function App() {
             <main className="main-content">
               <section className="dashboard-section">
                 <Routes>
-                  <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                  <Route
+                    path="/"
+                    element={<Navigate to="/dashboard" replace />}
+                  />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/test-requests" element={<TestRequestManagement />} />
+                  <Route
+                    path="/test-requests"
+                    element={<TestRequestManagement />}
+                  />
                   <Route path="/testcase" element={<Reports />} />
                   <Route path="/management" element={<Management />} />
                   <Route path="/reports" element={<Reports />} />
-                  <Route path="/testresults/:projectId" element={<TestResults />} />
+                  <Route
+                    path="/testresults/:projectId"
+                    element={<TestResults />}
+                  />
+                  <Route
+                    path="/pdf-download/:projectId"
+                    element={<PdfDownload />}
+                  />
                   <Route path="/notifications" element={<Notifications />} />
                   <Route path="/testers" element={<Testers />} />
                   <Route path="/field-calendar" element={<FieldCalendar />} />
                   <Route path="/document-system" element={<DocumentSystem />} />
-                  <Route path="/customer-management" element={<CustomerManagement />} />
+                  <Route
+                    path="/customer-management"
+                    element={<CustomerManagement />}
+                  />
                   <Route path="/system-settings" element={<SystemSettings />} />
-                  <Route path="/user-permissions" element={<UserPermissions />} />
+                  <Route
+                    path="/user-permissions"
+                    element={<UserPermissions />}
+                  />
                 </Routes>
               </section>
             </main>

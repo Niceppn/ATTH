@@ -17,7 +17,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
     },
     {
       id: "test-requests",
-      label: "จัดการคำขอทดสอบ",
+      label: "คำขอทดสอบ",
       icon: "clipboard-check",
       path: "/test-requests",
     },
@@ -29,7 +29,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
     },
     {
       id: "field-calendar",
-      label: "ปฏิทินงานภาคสนาม",
+      label: "ปฏิทินงาน",
       icon: "calendar",
       path: "/field-calendar",
     },
@@ -37,13 +37,13 @@ const Sidebar = ({ isOpen, onToggle }) => {
     // Results & Documentation
     {
       id: "document-system",
-      label: "ระบบจัดเก็บเอกสาร/ฟอร์ม",
+      label: "จัดเก็บเอกสาร",
       icon: "folder",
       path: "/document-system",
     },
     {
       id: "testcase",
-      label: "ผลการทดสอบ / รายงาน",
+      label: "รายงาน",
       icon: "search",
       path: "/testcase",
     },
@@ -51,13 +51,13 @@ const Sidebar = ({ isOpen, onToggle }) => {
     // Management Functions
     {
       id: "customer-management",
-      label: "จัดการลูกค้า/องค์กร",
+      label: "จัดการลูกค้า",
       icon: "building",
       path: "/customer-management",
     },
     {
       id: "notifications",
-      label: "แจ้งเตือน & ติดต่อกลับ",
+      label: "แจ้งเตือน",
       icon: "bell",
       path: "/notifications",
     },
@@ -71,7 +71,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
     },
     {
       id: "user-permissions",
-      label: "สิทธิ์ผู้ใช้งาน",
+      label: "สิทธิ์ผู้ใช้",
       icon: "shield",
       path: "/user-permissions",
     },
@@ -81,8 +81,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
     const icons = {
       dashboard: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -131,8 +131,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       "clipboard-check": (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -167,8 +167,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       users: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -207,8 +207,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       search: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -233,8 +233,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       folder: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -250,8 +250,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       calendar: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -302,8 +302,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       building: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -326,8 +326,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       cog: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -352,8 +352,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       bell: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -376,8 +376,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       shield: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -400,8 +400,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       ),
       chart: (
         <svg
-          width="20"
-          height="20"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -433,52 +433,35 @@ const Sidebar = ({ isOpen, onToggle }) => {
           <div className="sidebar-logo">
             <div className="logo-icon">
               <svg
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <rect
-                  width="40"
-                  height="40"
-                  rx="8"
+                  width="24"
+                  height="24"
+                  rx="4"
                   fill="white"
-                  fillOpacity="0.15"
+                  fillOpacity="0.2"
                 />
                 <path
-                  d="M20 8C26.6274 8 32 13.3726 32 20C32 26.6274 26.6274 32 20 32C13.3726 32 8 26.6274 8 20C8 13.3726 13.3726 8 20 8Z"
+                  d="M12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12C4 7.58172 7.58172 4 12 4Z"
                   fill="white"
                 />
+                <circle cx="9" cy="10.5" r="1" fill="#2d9b8c" />
+                <circle cx="15" cy="10.5" r="1" fill="#2d9b8c" />
                 <path
-                  d="M26.6667 16.6667C26.6667 15.5621 25.7712 14.6667 24.6667 14.6667C24.1788 14.6667 23.7333 14.8485 23.3939 15.1515C22.1818 14.4242 20.6667 14 19 13.9697L19.8788 9.81818L22.7879 10.4848C22.8242 11.1273 23.3576 11.6364 24 11.6364C24.6788 11.6364 25.2121 11.103 25.2121 10.4242C25.2121 9.74545 24.6788 9.21212 24 9.21212C23.5152 9.21212 23.103 9.51515 22.9333 9.93939L19.6364 9.21212C19.5152 9.18182 19.3939 9.18182 19.2727 9.24848C19.1515 9.31515 19.0606 9.41818 19.0303 9.53939L18.0606 13.9697C16.303 14 14.7879 14.4242 13.5758 15.1515C13.2364 14.8485 12.7879 14.6667 12.303 14.6667C11.1985 14.6667 10.303 15.5621 10.303 16.6667C10.303 17.4545 10.7273 18.1515 11.3576 18.4848C11.3576 18.6364 11.3576 18.7879 11.3576 18.9394C11.3576 21.8788 15.8788 24.303 21.3333 24.303C26.7879 24.303 31.3091 21.8788 31.3091 18.9394C31.3091 18.7879 31.3091 18.6364 31.3091 18.4848C31.9394 18.1515 32.3636 17.4545 32.3636 16.6667H26.6667Z"
-                  fill="#16A085"
-                />
-                <ellipse
-                  cx="16.6667"
-                  cy="18.6667"
-                  rx="1.66667"
-                  ry="1.66667"
-                  fill="white"
-                />
-                <ellipse
-                  cx="25"
-                  cy="18.6667"
-                  rx="1.66667"
-                  ry="1.66667"
-                  fill="white"
-                />
-                <path
-                  d="M15 22C15.9204 22.7538 17.8463 23.5 20 23.5C22.1537 23.5 24.0796 22.7538 25 22"
-                  stroke="white"
-                  strokeWidth="1.66667"
+                  d="M9 14C9.55 14.6 10.96 15 12 15C13.04 15 14.45 14.6 15 14"
+                  stroke="#2d9b8c"
+                  strokeWidth="1.2"
                   strokeLinecap="round"
                 />
               </svg>
             </div>
             <div className="logo-text">
               <div className="logo-title">ATTH</div>
-              <div className="logo-subtitle">Assistive Tech Test Hub</div>
             </div>
           </div>
 
@@ -513,6 +496,42 @@ const Sidebar = ({ isOpen, onToggle }) => {
           </button>
         </div>
 
+        {/* User Profile Section */}
+        <div className="user-profile-section">
+          <div className="user-profile">
+            <div className="user-avatar">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <div className="user-info">
+              <div className="user-name">ผู้ดูแลระบบ</div>
+              <div className="user-role">Administrator</div>
+            </div>
+          </div>
+        </div>
+
         <nav className="sidebar-nav">
           <ul className="nav-list">
             {navItems.map((item) => (
@@ -520,10 +539,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 <NavLink
                   to={item.path}
                   className={({ isActive }) =>
-                    classNames(
-                      "nav-link",
-                      isActive ? "nav-link-active" : ""
-                    )
+                    classNames("nav-link", isActive ? "nav-link-active" : "")
                   }
                   onClick={() => onToggle(false)}
                 >
@@ -538,14 +554,11 @@ const Sidebar = ({ isOpen, onToggle }) => {
         <div className="sidebar-footer">
           {/* Logout Section */}
           <div className="logout-section">
-            <button
-              className="nav-link logout-link"
-              onClick={logout}
-            >
+            <button className="nav-link logout-link" onClick={logout}>
               <span className="nav-icon">
                 <svg
-                  width="20"
-                  height="20"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
