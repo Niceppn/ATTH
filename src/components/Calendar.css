@@ -1,0 +1,148 @@
+/* ✅ Calendar Card */
+.calendar-card {
+  background-color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: none;
+}
+
+/* ✅ Header ของ Calendar */
+.calendar-card-header {
+  background-color: #2d9b8c;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+/* ✅ Inline Navigation (ปุ่ม + เดือน) */
+.calendar-nav-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ✅ ปุ่มลูกศร */
+.calendar-nav-btn {
+  background-color: transparent;        /* ❌ เอาพื้นหลังออก */
+  color: #2d9b8c;                       /* ✅ สีของไอคอน */
+  border: 2px solid #2d9b8c;            /* ✅ กรอบเขียว */
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+/* ✅ ตอน hover: เปลี่ยนสีเฉพาะกรอบ/ไอคอน */
+.calendar-nav-btn:hover {
+  background-color: transparent;       /* ❌ ไม่ต้องมีพื้นหลัง */
+  color: #1a7063;                      /* ✅ ไอคอนเขียวเข้มขึ้น */
+  border-color: #1a7063;               /* ✅ กรอบเขียวเข้ม */
+}
+
+
+/* ✅ ชื่อเดือน */
+.calendar-month-year {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #171717;
+}
+
+/* ✅ Header วันในสัปดาห์ */
+.calendar-days-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #1a7063;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* ✅ วันแต่ละวันในเดือน */
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f9f9f9;
+}
+
+.calendar-day {
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  min-height: 100px;
+  background-color: #fff;
+  transition: background 0.3s;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+/* ✅ วันที่ปัจจุบัน */
+.calendar-day.today {
+  background-color: #e0f6f3;
+  border: 2px solid #2d9b8c;
+}
+
+/* ✅ วันที่มี event */
+.calendar-day.has-events {
+  border-left: 4px solid #2d9b8c;
+}
+
+/* ✅ การ์ดรายชื่อเหตุการณ์ */
+.events-list-card {
+  background-color: #ffffff;
+  border: none;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  border-radius: 1.25rem;
+}
+
+/* ✅ Header รายการเหตุการณ์ */
+.card-header-events {
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+/* ✅ รายการ event */
+.event-item {
+  background-color: #f5fdfc;
+  border-left: 4px solid #2d9b8c;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.upcoming-events {
+  max-height: 512px;  /* ปรับความสูงตามต้องการ */
+  overflow-y: auto;   /* เปิดใช้งาน scroll แนวตั้ง */
+  scroll-behavior: smooth; /* เลื่อนนุ่มนวล */
+}
+@media (max-width: 767.98px) {
+  /* สมมติ breakpoint ที่ 768px (มือถือ) */
+
+  /* ถ้าใช้ Bootstrap Grid, ให้ Col ทั้งสองจัดเรียงแนวตั้ง */
+  .calendar-col, /* สมมติ class ครอบ calendar */
+  .events-col {  /* สมมติ class ครอบ upcoming-events */
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /* ถ้าใช้ grid หรือ flex container ให้จัดใหม่เป็น column */
+  .row {
+    flex-direction: column;
+  }
+
+  /* เอา scrollbar ของ upcoming-events ออก */
+  .upcoming-events {
+    max-height: none !important;  /* เอาข้อจำกัดความสูงออก */
+    overflow-y: visible !important; /* ไม่แสดง scroll แนวตั้ง */
+  }
+}
