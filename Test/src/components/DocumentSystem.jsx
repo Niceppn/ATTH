@@ -4,21 +4,18 @@ import {
   Row,
   Col,
   Button,
-  Form,
   Table,
   Badge,
-  Modal,
-  ProgressBar,
-  Dropdown,
+  Form,
   InputGroup,
+  ButtonGroup,
+  Dropdown,
 } from "react-bootstrap";
 
 const DocumentSystem = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [viewMode, setViewMode] = useState("grid");
-  const [showUploadModal, setShowUploadModal] = useState(false);
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [viewMode, setViewMode] = useState("list"); // 'list' or 'details'
 
   // Sample documents data
   const documents = [
@@ -102,49 +99,44 @@ const DocumentSystem = () => {
     },
   ];
 
-  const categories = [
-    { value: "all", label: "ทั้งหมด", count: documents.length },
-    {
-      value: "reports",
-      label: "รายงาน",
-      count: documents.filter((d) => d.category === "reports").length,
-    },
-    {
-      value: "screenshots",
-      label: "ภาพหน้าจอ",
-      count: documents.filter((d) => d.category === "screenshots").length,
-    },
-    {
-      value: "videos",
-      label: "วิดีโอ",
-      count: documents.filter((d) => d.category === "videos").length,
-    },
-    {
-      value: "forms",
-      label: "แบบฟอร์ม",
-      count: documents.filter((d) => d.category === "forms").length,
-    },
-    {
-      value: "data",
-      label: "ข้อมูล",
-      count: documents.filter((d) => d.category === "data").length,
-    },
-    {
-      value: "audio",
-      label: "เสียง",
-      count: documents.filter((d) => d.category === "audio").length,
-    },
-  ];
+  // Function to extract unique projects and their document counts
+  const getProjectData = () => {
+    const projectMap = new Map();
+    documents.forEach((doc) => {
+      if (projectMap.has(doc.project)) {
+        projectMap.set(doc.project, projectMap.get(doc.project) + 1);
+      } else {
+        projectMap.set(doc.project, 1);
+      }
+    });
+    return Array.from(projectMap).map(([name, count]) => ({
+      name,
+      documentCount: count,
+    }));
+  };
 
-  const filteredDocuments = documents.filter((doc) => {
-    const matchesSearch =
-      doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.project.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || doc.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const projects = getProjectData();
 
+  // Function to get documents for selected project
+  const getProjectDocuments = () => {
+    return documents.filter(doc => doc.project === selectedProject);
+  };
+
+  // Function to get status badge
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case "approved":
+        return <Badge bg="success">อนุมัติแล้ว</Badge>;
+      case "pending":
+        return <Badge bg="warning">รออนุมัติ</Badge>;
+      case "rejected":
+        return <Badge bg="danger">ปฏิเสธ</Badge>;
+      default:
+        return <Badge bg="secondary">ไม่ทราบ</Badge>;
+    }
+  };
+
+  // Function to get file type icon
   const getFileTypeIcon = (type) => {
     switch (type.toLowerCase()) {
       case "pdf":
@@ -172,42 +164,37 @@ const DocumentSystem = () => {
       case "ppt":
         return "📽️";
       default:
-        return "📁";
+        return "��";
     }
   };
 
-  const getStatusBadge = (status) => {
-    switch (status) {
-      case "approved":
-        return <Badge bg="success">อนุมัติแล้ว</Badge>;
-      case "pending":
-        return <Badge bg="warning">รออนุมัติ</Badge>;
-      case "rejected":
-        return <Badge bg="danger">ปฏิเสธ</Badge>;
-      default:
-        return <Badge bg="secondary">ไม่ทราบ</Badge>;
-    }
+  // Action Handlers
+  const handleDownload = (docId) => {
+    console.log(`Downloading document with ID: ${docId}`);
+    // Implement actual download logic here
   };
 
-  const getFileSize = (bytes) => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  const handleEditDocument = (docId) => {
+    console.log(`Editing document with ID: ${docId}`);
+    // Implement actual edit logic here (e.g., open a modal for editing)
   };
 
-  const handleFileUpload = (event) => {
-    const files = Array.from(event.target.files);
-    setSelectedFiles(files);
+  const handleDeleteDocument = (docId) => {
+    console.log(`Deleting document with ID: ${docId}`);
+    // Implement actual delete logic here (e.g., show a confirmation modal)
   };
 
-  const totalSize = documents.reduce((total, doc) => {
-    const size = parseFloat(doc.size.split(" ")[0]);
-    const unit = doc.size.split(" ")[1];
-    const bytes = unit === "MB" ? size * 1024 * 1024 : size * 1024;
-    return total + bytes;
-  }, 0);
+  // Filter projects based on search term
+  const filteredProjects = projects.filter(project =>
+    project.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Filter documents based on search term
+  const filteredDocuments = getProjectDocuments().filter(doc =>
+    doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    doc.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    doc.uploader.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="document-system-container">
@@ -219,341 +206,198 @@ const DocumentSystem = () => {
         </p>
       </div>
 
-      {/* Storage Stats */}
-      <Row className="mb-4">
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card h-100">
-            <Card.Body>
-              <div className="stat-card-content">
-                <div className="stat-icon stat-icon-primary">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
-                  </svg>
-                </div>
-                <div className="stat-info">
-                  <div className="stat-value">{documents.length}</div>
-                  <div className="stat-label">ไฟล์ทั้งหมด</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card h-100">
-            <Card.Body>
-              <div className="stat-card-content">
-                <div className="stat-icon stat-icon-success">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
-                  </svg>
-                </div>
-                <div className="stat-info">
-                  <div className="stat-value">{getFileSize(totalSize)}</div>
-                  <div className="stat-label">พื้นที่ใช้งาน</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card h-100">
-            <Card.Body>
-              <div className="stat-card-content">
-                <div className="stat-icon stat-icon-info">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" fill="#E8F0FE"/>
-                    <rect x="10" y="7" width="4" height="8" rx="2" fill="#4285F4"/>
-                  </svg>
-                </div>
-                <div className="stat-info">
-                  <div className="stat-value">{documents.filter((d) => d.uploadDate === "2024-01-15").length}</div>
-                  <div className="stat-label">อัปโหลดวันนี้</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card h-100">
-            <Card.Body>
-              <div className="stat-card-content">
-                <div className="stat-icon stat-icon-warning">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#FFF4E5"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#FBBC05"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#FBBC05" strokeWidth="2"/>
-                  </svg>
-                </div>
-                <div className="stat-info">
-                  <div className="stat-value">{documents.filter((d) => d.status === "pending").length}</div>
-                  <div className="stat-label">รออนุมัติ</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
-      {/* Controls */}
-      <Row className="mb-4">
-        <Col lg={8}>
-          <Card className="filter-card">
-            <Card.Body>
-              <Row className="align-items-end">
-                <Col md={6} className="mb-3">
-                  <Form.Label>ค้นหาไฟล์</Form.Label>
-                  <InputGroup>
-                    <Form.Control
-                      type="text"
-                      placeholder="ค้นหาชื่อไฟล์หรือโครงการ..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="search-input-custom"
-                    />
-                    <Button variant="outline-primary" className="search-btn">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path
-                          d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </Button>
-                  </InputGroup>
-                </Col>
-                <Col md={4} className="mb-3">
-                  <Form.Label>หมวดหมู่</Form.Label>
-                  <Form.Select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="form-select-custom"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label} ({cat.count})
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Col>
-                <Col md={2} className="mb-3">
-                  <Button
-                    variant="primary"
-                    className="w-100"
-                    onClick={() => setShowUploadModal(true)}
-                  >
-                    อัปโหลดไฟล์
-                  </Button>
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col lg={4}>
-          <Card className="storage-usage-card">
-            <Card.Body>
-              <h6>การใช้พื้นที่จัดเก็บ</h6>
-              <ProgressBar
-                now={75}
-                label="75% ของ 100 GB"
-                className="storage-progress"
+      {/* Search Bar */}
+      <div className="mb-4">
+        <InputGroup>
+          <Form.Control
+            type="text"
+            placeholder={selectedProject ? "ค้นหาเอกสาร..." : "ค้นหาโครงการ..."}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input-custom"
+          />
+          <Button variant="outline-primary" className="search-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-              <small className="text-muted">
-                ใช้งาน {getFileSize(totalSize)} จาก 100 GB
-              </small>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
-      {/* Documents Display */}
-      <Card className="documents-card">
-        <Card.Header className="card-header-documents">
-          <h5 className="card-title">เอกสารและไฟล์</h5>
-          <div className="results-count">
-            แสดง {filteredDocuments.length} จาก {documents.length} ไฟล์
-          </div>
-        </Card.Header>
-        <Card.Body className="p-0">
-          {viewMode === "grid" ? (
-            <div className="documents-grid">
-              {filteredDocuments.map((doc) => (
-                <div key={doc.id} className="document-card">
-                  <div className="document-thumbnail">
-                    <div className="file-icon">{getFileTypeIcon(doc.type)}</div>
-                    <div className="file-type-badge">{doc.type}</div>
-                  </div>
-                  <div className="document-info">
-                    <h6 className="document-name" title={doc.name}>
-                      {doc.name.length > 30
-                        ? doc.name.substring(0, 30) + "..."
-                        : doc.name}
-                    </h6>
-                    <div className="document-meta">
-                      <div className="document-size">{doc.size}</div>
-                      <div className="document-date">{doc.uploadDate}</div>
-                    </div>
-                    <div className="document-project">{doc.project}</div>
-                    <div className="document-footer">
-                      {getStatusBadge(doc.status)}
-                      <Dropdown>
-                        <Dropdown.Toggle variant="outline-secondary" size="sm">
-                          ⋮
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item>ดาวน์โหลด</Dropdown.Item>
-                          <Dropdown.Item>แชร์</Dropdown.Item>
-                          <Dropdown.Item>แก้ไข</Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item className="text-danger">
-                            ลบ
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <Table responsive className="documents-table mb-0">
-              <thead>
-                <tr>
-                  <th>ชื่อไฟล์</th>
-                  <th>ประเภท</th>
-                  <th>ขนาด</th>
-                  <th>โครงการ</th>
-                  <th>ผู้อัปโหลด</th>
-                  <th>วันที่</th>
-                  <th>ดาวน์โหลด</th>
-                  <th>สถานะ</th>
-                  <th>การดำเนินการ</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredDocuments.map((doc) => (
-                  <tr key={doc.id}>
-                    <td>
-                      <div className="file-name">
-                        <span className="file-icon-small">
-                          {getFileTypeIcon(doc.type)}
-                        </span>
-                        {doc.name}
-                      </div>
-                    </td>
-                    <td>
-                      <Badge bg="secondary">{doc.type}</Badge>
-                    </td>
-                    <td>{doc.size}</td>
-                    <td>{doc.project}</td>
-                    <td>{doc.uploader}</td>
-                    <td>{doc.uploadDate}</td>
-                    <td>{doc.downloads}</td>
-                    <td>{getStatusBadge(doc.status)}</td>
-                    <td>
-                      <Dropdown>
-                        <Dropdown.Toggle variant="outline-primary" size="sm">
-                          การดำเนินการ
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                          <Dropdown.Item>ดาวน์โหลด</Dropdown.Item>
-                          <Dropdown.Item>แชร์</Dropdown.Item>
-                          <Dropdown.Item>แก้ไข</Dropdown.Item>
-                          <Dropdown.Divider />
-                          <Dropdown.Item className="text-danger">
-                            ลบ
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          )}
-        </Card.Body>
-      </Card>
-
-      {/* Upload Modal */}
-      <Modal
-        show={showUploadModal}
-        onHide={() => setShowUploadModal(false)}
-        size="lg"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>อัปโหลดไฟล์ใหม่</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <div className="mb-3">
-              <Form.Label>เลือกไฟล์</Form.Label>
-              <Form.Control
-                type="file"
-                multiple
-                onChange={handleFileUpload}
-                accept=".pdf,.png,.jpg,.jpeg,.mp4,.docx,.xlsx,.mp3"
-              />
-              <Form.Text className="text-muted">
-                รองรับ: PDF, รูปภาพ, วิดีโอ, เอกสาร, เสียง (ขนาดสูงสุด 50MB
-                ต่อไฟล์)
-              </Form.Text>
-            </div>
-
-            {selectedFiles.length > 0 && (
-              <div className="mb-3">
-                <h6>ไฟล์ที่เลือก:</h6>
-                {selectedFiles.map((file, index) => (
-                  <div key={index} className="selected-file">
-                    <span>{file.name}</span>
-                    <span className="file-size">
-                      ({getFileSize(file.size)})
-                    </span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <Row>
-              <Col md={6} className="mb-3">
-                <Form.Label>หมวดหมู่</Form.Label>
-                <Form.Select>
-                  <option>เลือกหมวดหมู่</option>
-                  <option value="reports">รายงาน</option>
-                  <option value="screenshots">ภาพหน้าจอ</option>
-                  <option value="videos">วิดีโอ</option>
-                  <option value="forms">แบบฟอร์ม</option>
-                  <option value="data">ข้อมูล</option>
-                  <option value="audio">เสียง</option>
-                </Form.Select>
-              </Col>
-              <Col md={6} className="mb-3">
-                <Form.Label>โครงการ</Form.Label>
-                <Form.Control type="text" placeholder="กรอกชื่อโครงการ" />
-              </Col>
-            </Row>
-            <div className="mb-3">
-              <Form.Label>คำอธิบาย</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                placeholder="อธิบายเนื้อหาไฟล์..."
-              />
-            </div>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowUploadModal(false)}>
-            ยกเลิก
+            </svg>
           </Button>
-          <Button variant="primary">อัปโหลด</Button>
-        </Modal.Footer>
-      </Modal>
+        </InputGroup>
+      </div>
+
+      {selectedProject ? (
+        // Project Documents View
+        <div className="project-documents-view">
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="project-title">{selectedProject}</h2>
+            <div className="d-flex align-items-center gap-3">
+              <ButtonGroup>
+                <Button
+                  variant={viewMode === "list" ? "primary" : "outline-primary"}
+                  onClick={() => setViewMode("list")}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="me-2">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  รายการ
+                </Button>
+                <Button
+                  variant={viewMode === "details" ? "primary" : "outline-primary"}
+                  onClick={() => setViewMode("details")}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="me-2">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  รายละเอียด
+                </Button>
+              </ButtonGroup>
+              <Button 
+                variant="outline-primary" 
+                onClick={() => {
+                  setSelectedProject(null);
+                  setSearchTerm("");
+                }}
+                className="back-button"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="me-2">
+                  <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                กลับไปเลือกโครงการ
+              </Button>
+            </div>
+          </div>
+
+          <Card>
+            <Card.Body className="p-0">
+              {viewMode === "list" ? (
+                <Table hover responsive className="documents-table mb-0">
+                  <thead>
+                    <tr>
+                      <th style={{ width: '5%', minWidth: '50px' }}>#</th>
+                      <th style={{ width: '25%', minWidth: '200px' }}>ชื่อเอกสาร</th>
+                      <th style={{ width: '15%', minWidth: '100px' }}>ประเภท</th>
+                      <th style={{ width: '15%', minWidth: '120px' }}>โครงการ</th>
+                      <th style={{ width: '10%', minWidth: '80px' }}>ขนาด</th>
+                      <th style={{ width: '10%', minWidth: '120px' }}>อัปโหลดเมื่อ</th>
+                      <th style={{ width: '10%', minWidth: '100px' }}>ผู้รับผิดชอบ</th>
+                      <th style={{ width: '10%', minWidth: '120px' }}>การดำเนินการ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredDocuments.map((doc, index) => (
+                      <tr key={doc.id}>
+                        <td data-label="#" style={{ width: '5%', minWidth: '50px' }}>{index + 1}</td>
+                        <td data-label="ชื่อเอกสาร" style={{ width: '25%', minWidth: '200px' }}>
+                          <div className="document-name-list">
+                            {getFileTypeIcon(doc.type)}{' '}
+                            <span>{doc.name}</span>
+                          </div>
+                        </td>
+                        <td data-label="ประเภท" style={{ width: '15%', minWidth: '100px' }}>
+                          <Badge bg="secondary" className="file-type-badge-list">{doc.type}</Badge>
+                        </td>
+                        <td data-label="โครงการ" style={{ width: '15%', minWidth: '120px' }}>{doc.project}</td>
+                        <td data-label="ขนาด" style={{ width: '10%', minWidth: '80px' }}>{doc.size}</td>
+                        <td data-label="อัปโหลดเมื่อ" style={{ width: '10%', minWidth: '120px' }}>{doc.uploadDate}</td>
+                        <td data-label="ผู้รับผิดชอบ" style={{ width: '10%', minWidth: '100px' }}>{doc.uploader}</td>
+                        <td data-label="การดำเนินการ" style={{ width: '10%', minWidth: '120px' }}>
+                          <Dropdown align="end">
+                            <Dropdown.Toggle variant="link" id={`dropdown-document-actions-${doc.id}`} className="text-decoration-none p-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item onClick={() => handleDownload(doc.id)}>ดาวน์โหลด</Dropdown.Item>
+                              <Dropdown.Item onClick={() => handleEditDocument(doc.id)}>แก้ไข</Dropdown.Item>
+                              <Dropdown.Item onClick={() => handleDeleteDocument(doc.id)}>ลบ</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              ) : (
+                <div className="documents-grid">
+                  {filteredDocuments.map((doc) => (
+                    <Card key={doc.id} className="document-card">
+                      <Card.Body>
+                        <div className="document-thumbnail mb-3">
+                          <div className="file-icon">{getFileTypeIcon(doc.type)}</div>
+                          <div className="file-type-badge">{doc.type}</div>
+                        </div>
+                        <h6 className="document-name" title={doc.name}>
+                          {doc.name}
+                        </h6>
+                        <div className="document-meta">
+                          <div className="document-size">{doc.size}</div>
+                          <div className="document-date">{doc.uploadDate}</div>
+                        </div>
+                        <div className="document-uploader">{doc.uploader}</div>
+                        <div className="document-footer">
+                          <div className="document-downloads">
+                            ดาวน์โหลด: {doc.downloads}
+                          </div>
+                          {getStatusBadge(doc.status)}
+                          <Dropdown align="end">
+                            <Dropdown.Toggle variant="outline-secondary" size="sm">
+                              ⋮
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                              <Dropdown.Item onClick={() => handleDownload(doc.id)}>ดาวน์โหลด</Dropdown.Item>
+                              <Dropdown.Item onClick={() => handleEditDocument(doc.id)}>แก้ไข</Dropdown.Item>
+                              <Dropdown.Divider />
+                              <Dropdown.Item onClick={() => handleDeleteDocument(doc.id)} className="text-danger">ลบ</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </Dropdown>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </Card.Body>
+          </Card>
+        </div>
+      ) : (
+        // Project Selection View
+        <Row className="project-cards-grid">
+          {filteredProjects.map((project, index) => (
+            <Col lg={4} md={6} sm={12} key={index} className="mb-4">
+              <Card 
+                className="project-selection-card h-100"
+                onClick={() => setSelectedProject(project.name)}
+                style={{ cursor: 'pointer' }}
+              >
+                <Card.Body className="project-selection-card-body d-flex flex-column">
+                  <div className="project-card-header align-items-center justify-content-center text-center">
+                    <div className="project-icon mb-3">
+                      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 13V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H12L14 5H21C21.5523 5 22 5.44772 22 6V13ZM20 13H14C13.4477 13 13 12.5523 13 12V6H3V19H21V13H20Z" fill="currentColor"/>
+                        <path d="M17 10C17 10.5523 16.5523 11 16 11H8C7.44772 11 7 10.5523 7 10C7 9.44772 7.44772 9 8 9H16C16.5523 9 17 9.44772 17 10Z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                    <h5 className="project-card-title text-center">{project.name}</h5>
+                  </div>
+                  <div className="project-card-content flex-grow-1 text-center">
+                    <p className="project-card-subtitle">เอกสารทั้งหมด: {project.documentCount} ไฟล์</p>
+                  </div>
+                  <div className="project-card-action text-center mt-auto">
+                    <small className="action-hint">
+                      คลิกเพื่อดูเอกสาร
+                    </small>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </div>
   );
 };

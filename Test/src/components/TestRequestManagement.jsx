@@ -409,7 +409,7 @@ const TestRequestManagement = () => {
                     className="search-input-custom"
                   />
                 </Col>
-                <Col md={3} className="mb-3">
+                <Col xs={12} md={3} className="mb-3">
                   <Form.Label>สถานะ</Form.Label>
                   <Form.Select
                     value={selectedStatus}
@@ -423,7 +423,7 @@ const TestRequestManagement = () => {
                     ))}
                   </Form.Select>
                 </Col>
-                <Col md={3} className="mb-3">
+                <Col xs={12} md={3} className="mb-3">
                   <Form.Label>ความสำคัญ</Form.Label>
                   <Form.Select
                     value={selectedPriority}
@@ -437,7 +437,7 @@ const TestRequestManagement = () => {
                     ))}
                   </Form.Select>
                 </Col>
-                <Col md={2} className="mb-3">
+                <Col xs={12} md={2} className="mb-3">
                   <Button
                     variant="primary"
                     className="w-100"
@@ -480,28 +480,28 @@ const TestRequestManagement = () => {
           <Table responsive className="test-requests-table mb-0">
             <thead>
               <tr>
-                <th>รหัสคำขอ</th>
-                <th>โครงการ</th>
-                <th>ลูกค้า</th>
-                <th>ประเภทการทดสอบ</th>
-                <th>ผู้ทดสอบ</th>
-                <th>กำหนดส่ง</th>
-                <th>สถานะ</th>
-                <th>ความสำคัญ</th>
-                <th>ความคืบหน้า</th>
-                <th>การดำเนินการ</th>
+                <th style={{ minWidth: '120px' }}>รหัสคำขอ</th>
+                <th style={{ minWidth: '300px' }}>โครงการ</th>
+                <th style={{ minWidth: '180px' }}>ลูกค้า</th>
+                <th style={{ minWidth: '150px' }}>ประเภทการทดสอบ</th>
+                <th style={{ minWidth: '150px' }}>ผู้ทดสอบ</th>
+                <th style={{ minWidth: '120px' }}>กำหนดส่ง</th>
+                <th style={{ minWidth: '120px' }}>สถานะ</th>
+                <th style={{ minWidth: '100px' }}>ความสำคัญ</th>
+                <th style={{ minWidth: '120px' }}>ความคืบหน้า</th>
+                <th style={{ minWidth: '120px' }}>การดำเนินการ</th>
               </tr>
             </thead>
             <tbody>
               {filteredRequests.map((request) => (
                 <tr key={request.id} className="request-row">
-                  <td>
+                  <td style={{ minWidth: '120px' }}>
                     <div className="request-id">
                       <strong>{request.id}</strong>
                       <div className="request-date">{request.requestDate}</div>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '300px' }}>
                     <div className="project-info">
                       <div className="project-title">{request.title}</div>
                       <div className="project-description">
@@ -509,23 +509,23 @@ const TestRequestManagement = () => {
                       </div>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '180px' }}>
                     <div className="client-name">{request.client}</div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '150px' }}>
                     <Badge bg="info" className="test-type-badge">
                       {request.testType}
                     </Badge>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '150px' }}>
                     <div className="tester-name">{request.tester}</div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '120px' }}>
                     <div className="due-date">{request.dueDate}</div>
                   </td>
-                  <td>{getStatusBadge(request.status)}</td>
-                  <td>{getPriorityBadge(request.priority)}</td>
-                  <td>
+                  <td style={{ minWidth: '120px' }}>{getStatusBadge(request.status)}</td>
+                  <td style={{ minWidth: '100px' }}>{getPriorityBadge(request.priority)}</td>
+                  <td style={{ minWidth: '120px' }}>
                     <div className="progress-info">
                       <ProgressBar
                         now={request.progress}
@@ -537,7 +537,7 @@ const TestRequestManagement = () => {
                       </small>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '120px' }}>
                     <Button
                       variant="outline-primary"
                       size="sm"

@@ -352,12 +352,9 @@ const UserPermissions = () => {
           <Card className="stat-card">
             <Card.Body>
               <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-teal">
-                  <span role="img" aria-label="users">👥</span>
-                </div>
                 <div>
-                  <div className="stat-number">{users.length}</div>
                   <div className="stat-label">ผู้ใช้ทั้งหมด</div>
+                  <div className="stat-number">{users.length}</div>
                 </div>
               </div>
             </Card.Body>
@@ -367,12 +364,9 @@ const UserPermissions = () => {
           <Card className="stat-card">
             <Card.Body>
               <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-green">
-                  <span role="img" aria-label="roles">🔑</span>
-                </div>
                 <div>
-                  <div className="stat-number">{roles.length}</div>
                   <div className="stat-label">บทบาท</div>
+                  <div className="stat-number">{roles.length}</div>
                 </div>
               </div>
             </Card.Body>
@@ -382,12 +376,9 @@ const UserPermissions = () => {
           <Card className="stat-card">
             <Card.Body>
               <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-orange">
-                  <span role="img" aria-label="active-users">✅</span>
-                </div>
                 <div>
-                  <div className="stat-number">{users.filter((u) => u.status === "active").length}</div>
                   <div className="stat-label">ผู้ใช้ที่ใช้งาน</div>
+                  <div className="stat-number">{users.filter((u) => u.status === "active").length}</div>
                 </div>
               </div>
             </Card.Body>
@@ -397,12 +388,9 @@ const UserPermissions = () => {
           <Card className="stat-card">
             <Card.Body>
               <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-blue">
-                  <span role="img" aria-label="permissions">🛡️</span>
-                </div>
                 <div>
-                  <div className="stat-number">{allPermissions.reduce((total, cat) => total + cat.permissions.length, 0)}</div>
                   <div className="stat-label">สิทธิ์ทั้งหมด</div>
+                  <div className="stat-number">{allPermissions.reduce((total, cat) => total + cat.permissions.length, 0)}</div>
                 </div>
               </div>
             </Card.Body>
