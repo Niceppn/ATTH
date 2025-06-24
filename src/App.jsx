@@ -12,10 +12,13 @@ import BuildingForm from "./components/BuildindForm";
 import EleForm from "./components/EleForm";
 import WaterForm from "./components/WaterForm";
 import Calendar from "./components/Calendar";
+import UsageHistory from "./components/History";
+import SystemSettings from "./components/Setting";
+import Documents from "./components/document";
+import Manual from "./components/Manual";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/Sidebar.css";
-import { FaBars } from "react-icons/fa";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -26,39 +29,6 @@ function App() {
 
   return (
     <>
-      {/* ปุ่มเปิด sidebar แสดงเฉพาะเมื่อ sidebar ปิด */}
-      {!sidebarOpen && (
-        <div
-          className="sidebar-logo-open-button"
-          style={{
-            position: "fixed",
-            top: "1rem",
-            left: "1rem",
-            zIndex: 1200,
-          }}
-        >
-          <button
-            onClick={toggleSidebar}
-            aria-label="เปิดเมนู"
-            style={{
-              width:"50px",
-              height:"50px",
-              background: "#2d9b8c",
-              cursor: "pointer",
-              padding: 0,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fff",
-              fontSize: "1.5rem",
-              borderRadius:"8px"
-              
-            }}
-          >
-            <FaBars />
-          </button>
-        </div>
-      )}
 
       <BrowserRouter>
         <div className="app">
@@ -78,14 +48,14 @@ function App() {
                   <Route path="/work/Test-building/1" element={<BuildingForm />} />
                   <Route path="/work/Test-building/2" element={<EleForm />} />
                   <Route path="/work/Test-building/3" element={<WaterForm />} />
-                  <Route path="/history" element={<div>ประวัติการทดสอบ</div>} />
+                  <Route path="/history" element={<UsageHistory/>} />
                   <Route path="/calendar" element={<Calendar/>} />
-                  <Route path="/documents" element={<div>เอกสาร</div>} />
-                  <Route path="/manual" element={<div>คู่มือ</div>} />
+                  <Route path="/documents" element={<Documents/>} />
+                  <Route path="/manual" element={<Manual/>} />
                   <Route path="/guide" element={<div>แนวทาง</div>} />
                   <Route path="/notifications" element={<div>แจ้งเตือน</div>} />
                   <Route path="/logout" element={<div>ออกจากระบบ</div>} />
-
+                  <Route path="/setting" element={<SystemSettings />} />
                 </Routes>
               </Container>
             </main>

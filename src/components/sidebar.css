@@ -11,13 +11,6 @@
   z-index: 1000;
 }
 
-.sidebar-closed {
-  transform: translateX(-100%);
-}
-
-.sidebar-open {
-  transform: translateX(0);
-}
 
 /* Main content */
 .main-content {
@@ -27,7 +20,8 @@
 }
 
 .main-content.shifted {
-  margin-left: 250px; /* ให้ตรงกับความกว้าง Sidebar */
+  margin-left: 250px;
+  /* ให้ตรงกับความกว้าง Sidebar */
 }
 
 /* Optional: overlay */
@@ -40,5 +34,24 @@
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
 }
+
 /* Sidebar Footer */
+.logo-icon {
+  background: "none";
+  border: "none";
+  cursor: "pointer";
+  padding: 0;
+  display: "flex";
+  align-items: "center";
+  justify-content: "center";
+  color: "#fff";
+  font-size: "1rem";
+  margin-top: -5px;
+}
+.settings-icon {
+  height: 1.5rem;
+  cursor: pointer;
+  color: #2d9b8c; /* สีเขียวหรือตามที่ชอบ */
+  transition: color 0.3s ease;
+}
 

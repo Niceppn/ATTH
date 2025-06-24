@@ -1,7 +1,8 @@
-import React from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import WebsiteSection from "./WebsitesSection";
 import { useNavigate } from "react-router-dom";
+
 
 const WebsiteForm = () => {
     const sections = [
@@ -58,12 +59,47 @@ const WebsiteForm = () => {
     // เรียกใช้งานหลังประกาศฟังก์ชัน
     const sectionChunks = chunkArray(sections, 2);
 
+    const [url, setUrl] = useState("")
+    const goToLink = () => {
+            let validUrl = url.trim();
+            if (
+                validUrl &&
+                !validUrl.startsWith("http://") &&
+                !validUrl.startsWith("https://")
+            ) {
+                validUrl = "http://" + validUrl;
+            }
+
+            if (validUrl) {
+                window.open(validUrl, "_blank");
+            } else {
+                alert("กรุณากรอก URL ให้ถูกต้อง");
+            }
+        }
     return (
         <div className="file-upload-form">
             <div className="form-header">
                 <h4 className="form-title">เว็บไซต์</h4>
             </div>
+            <Row className="d-flex justify-content-between mx-1 my-2">
+                <Col xs={12} md={6}>
+                            <Form.Control
+                                type="text"
+                                placeholder="กรอก URL ที่นี่ เช่น https://www.google.com"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                style={{boxShadow: "0 4px 8px rgba(0,0,0,0.1) ",
+                                padding: "0.5rem 1rem",
 
+                            }}
+                            />
+                        </Col>
+                        <Col xs="auto">
+                            <Button variant="success" onClick={goToLink}>
+                                ไปยังลิงก์
+                            </Button>
+                        </Col>
+            </Row>
             <Container fluid>
                 {sectionChunks.map((chunk, rowIndex) => (
                     <Row key={rowIndex} className="mb-4">

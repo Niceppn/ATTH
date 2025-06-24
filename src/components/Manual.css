@@ -1,0 +1,714 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #06b6d4;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --light-bg: #f8fafc;
+    --dark-bg: #1e293b;
+    --text-primary: #0f172a;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius: 0.75rem;
+}
+
+body {
+    font-family: 'Sarabun', 'Kanit', sans-serif;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #eff6ff 100%);
+    min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Kanit', 'Sarabun', sans-serif;
+    font-weight: 600;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Navigation Styles */
+.navbar-custom {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), #9333ea, var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+/* Animated Tip Box */
+.tip-box {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 2rem;
+    animation: scaleIn 0.6s ease-out;
+}
+
+.tip-box h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.tip-box p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    transition: all 0.5s ease;
+}
+
+/* Stats Cards */
+.stats-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stats-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.stats-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Section Headers */
+.section-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 3rem;
+}
+
+/* POUR Principles Cards */
+.principle-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    height: 100%;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.principle-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.principle-icon {
+    display: inline-flex;
+    padding: 1rem;
+    border-radius: var(--radius);
+    color: white;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.principle-icon.perceivable {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.principle-icon.operable {
+    background: linear-gradient(135deg, var(--primary-color), #1d4ed8);
+}
+
+.principle-icon.understandable {
+    background: linear-gradient(135deg, #9333ea, #7c3aed);
+}
+
+.principle-icon.robust {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.principle-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.principle-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.principle-details {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.principle-examples h4 {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.example-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.example-icon {
+    color: var(--success-color);
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.example-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Testing Methods Accordion */
+.accordion-custom {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.accordion-item-custom {
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-item-custom:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.accordion-item-custom.auto {
+    border-color: #dcfce7;
+    background-color: #f0fdf4;
+}
+
+.accordion-item-custom.manual {
+    border-color: #dbeafe;
+    background-color: #eff6ff;
+}
+
+.accordion-item-custom.user {
+    border-color: #e9d5ff;
+    background-color: #f3e8ff;
+}
+
+.accordion-button-custom {
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-button-custom:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+}
+
+.accordion-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.accordion-subtitle {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.accordion-content {
+    padding: 0 2rem 2rem;
+    background-color: rgb(255, 255, 255);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.accordion-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.accordion-content.expanded {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.accordion-description {
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.tools-section {
+    margin-bottom: 1.5rem;
+}
+
+.tools-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.tools-title svg {
+    margin-right: 0.5rem;
+}
+
+.tool-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.tool-bullet {
+    width: 8px;
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+.tool-text {
+    color: var(--text-secondary);
+}
+
+/* Checklist Section */
+.checklist-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.checklist-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.checklist-category {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.checklist-checkbox {
+    margin-top: 0.25rem;
+    margin-right: 1rem;
+    accent-color: var(--primary-color);
+}
+
+.checklist-label {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+/* Resources Section */
+.resource-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    text-decoration: none;
+    color: inherit;
+}
+
+.resource-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.resource-icon {
+    font-size: 2rem;
+}
+
+.resource-category {
+    background-color: #dbeafe;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+}
+
+.resource-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.resource-card:hover .resource-title {
+    color: var(--primary-color);
+}
+
+.resource-description {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.resource-link {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.resource-link svg {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover .resource-link svg {
+    transform: translateX(4px);
+}
+
+/* Footer */
+.footer-custom {
+    background: linear-gradient(135deg, var(--dark-bg), #0f172a);
+    color: white;
+    padding: 3rem 0;
+}
+
+.footer-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.footer-text {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.footer-link {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: white;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid #475569;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stagger animations for lists */
+.stagger-animation>* {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+.stagger-animation>*:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stagger-animation>*:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stagger-animation>*:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stagger-animation>*:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.stagger-animation>*:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.stagger-animation>*:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-section {
+        padding: 2rem 0;
+    }
+
+    .section-header {
+        font-size: 2rem;
+    }
+
+    .principle-card,
+    .checklist-card,
+    .resource-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .accordion-button-custom {
+        padding: 1.5rem;
+    }
+
+    .accordion-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* Print styles for accessibility */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        background: white !important;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+        color: black !important;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    .principle-card,
+    .checklist-card,
+    .resource-card {
+        border: 1px solid #fff9f9;
+        break-inside: avoid;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #000080;
+        --text-primary: #000000;
+        --text-secondary: #333333;
+        --border-color: #000000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* Utility Classes */
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-color), #9333ea, var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hover-lift {
+    transition: transform 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+}
+
+.btn-custom-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, #0891b2);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}

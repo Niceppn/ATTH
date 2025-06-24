@@ -1,33 +1,39 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   FaTachometerAlt,
   FaClipboardList,
-  FaUsers,
   FaCalendarAlt,
   FaFolder,
   FaSearch,
   FaHome,
   FaBell,
   FaBars,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaCog,
+  FaUsers,
+  FaUserCog
 } from "react-icons/fa";
 
-
-
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-  const location = useLocation(); // เช็ค path ปัจจุบันเพื่อเน้นเมนู active
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const menuItems = [
     { icon: FaTachometerAlt, label: "งานที่ได้รับมอบหมาย", to: "/work" },
     { icon: FaClipboardList, label: "ประวัติการทดสอบ", to: "/history" },
     { icon: FaCalendarAlt, label: "ปฏิทินงานการทดสอบ", to: "/calendar" },
-    { icon: FaFolder, label: "ระบบจัดเก็บเอกสาร/ฟอร์ม", to: "/document" },
+    { icon: FaFolder, label: "ระบบจัดเก็บเอกสาร/ฟอร์ม", to: "/documents" },
     { icon: FaSearch, label: "คู่มือการทดสอบ", to: "/manual" },
     { icon: FaHome, label: "แนวทางการทดสอบ", to: "/guide" },
     { icon: FaBell, label: "แจ้งเตือน & ติดต่อกลุ่ม", to: "/notifications" },
     { icon: FaSignOutAlt, label: "ออกจากระบบ", to: "/logout" },
+    //{ icon: FaCog, label:"ตั้งค่า", to:"/setting"}
   ];
+
+  const handleClickSetting = () => {
+    navigate("/setting"); // ไปหน้า setting
+  };
 
   return (
     <div className={`sidebar ${isOpen ? "sidebar-open" : "sidebar-closed"}`}>
@@ -36,27 +42,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <div className="sidebar-logo">
-              <button
-                onClick={toggleSidebar}
-                aria-label={isOpen ? "ปิดเมนู" : "เปิดเมนู"}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#fff",
-                  fontSize: "1.5rem",
-                }}
-              >
+              <div className="logo-icon">
                 <FaBars />
-              </button>
-              
-              {/*<div className="logo-icon">
-                <FaBars />
-              </div>*/}
+              </div>
             </div>
             {isOpen && (
               <div className="sidebar-title">
@@ -75,8 +63,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <li key={index} className="nav-item">
               <Link
                 to={item.to}
-                className={`nav-link ${location.pathname === item.to ? "active" : ""
-                  }`}
+                className={`nav-link ${location.pathname === item.to ? "active" : ""}`}
                 title={!isOpen ? item.label : ""}
               >
                 <span className="nav-icon">
@@ -91,17 +78,30 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Footer */}
       <div className={`sidebar-footer ${isOpen ? "footer-open" : "footer-closed"}`}>
-        <div className="user-info">
-          <div className="user-avatar">
-            <FaUsers />
+        <div className="user-info d-flex align-items-center justify-content-between">
+          <div className="d-flex align-items-center">
+            <div className="user-avatar me-2">
+              <FaUsers />
+            </div>
+            {isOpen && (
+              <div className="user-details">
+                <div className="user-name">ผู้ใช้งาน</div>
+                <div className="user-role">Administrator</div>
+              </div>
+            )}
           </div>
-          <div className="user-details">
-            <div className="user-name">ผู้ใช้งาน</div>
-            <div className="user-role">Administrator</div>
-          </div>
+
+          {isOpen && (
+            <div
+              onClick={handleClickSetting}
+              style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+              title="ตั้งค่า Admin"
+            >
+              <FaCog size={20} style={{ marginRight: "8px" }} />
+            </div>
+          )}
         </div>
       </div>
-
     </div>
   );
 };

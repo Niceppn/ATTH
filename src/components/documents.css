@@ -1,0 +1,412 @@
+/* Import Google Fonts - Kanit and Noto Sans Thai */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for consistent styling */
+:root {
+    --sidebar-bg: #1a7063; /* Dark Teal - สีหลักของ Sidebar */
+    --sidebar-text: #ffffff; /* White - สีข้อความใน Sidebar */
+    --sidebar-hover: #2d9b8c; /* Lighter Teal - สีเมื่อโฮเวอร์ใน Sidebar */
+    --primary-color: #2d9b8c; /* Teal - สีหลักสำหรับปุ่มและไฮไลท์ */
+    --accent-color: #ff7b7b; /* Salmon - สีรอง/เน้น สำหรับปุ่มลบ */
+    --background-light: #f4f7f6; /* Light Gray - สีพื้นหลังทั่วไป */
+    --text-dark: #333; /* Dark Gray - สีข้อความเข้ม */
+    --text-muted: #6c757d; /* Muted Gray - สีข้อความรอง */
+    --card-bg: #ffffff; /* White - สีพื้นหลังการ์ด */
+    --shadow-light: 0 4px 12px rgba(26, 112, 99, 0.1); /* Soft shadow */
+    --shadow-hover: 0 12px 24px rgba(26, 112, 99, 0.15); /* Hover shadow */
+    --hero-bg: #1a7063; /* Same as sidebar for continuity */
+}
+
+body {
+    margin: 0;
+    font-family: 'Noto Sans Thai', 'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text-dark);
+    overflow-x: hidden; /* Prevent horizontal scroll from fixed sidebar */
+}
+
+.app-container {
+    height: 100vh; /* Make the container take full viewport height */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    min-width: 250px; /* Fixed width for sidebar */
+    max-width: 250px;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1); /* Shadow to separate from main content */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push footer to bottom */
+    position: sticky; /* Keep sidebar fixed */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full height */
+    z-index: 1000; /* Ensure it's above other content */
+}
+
+.sidebar-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.sidebar-header .logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-header .app-title {
+    color: var(--sidebar-text);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.sidebar-nav .nav-link {
+    color: var(--sidebar-text);
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-left: 5px solid transparent;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: var(--sidebar-hover);
+    color: var(--sidebar-text);
+    border-left-color: var(--accent-color); /* Highlight active/hover */
+}
+
+.sidebar-nav .nav-link.active {
+    background-color: var(--sidebar-hover);
+    color: var(--sidebar-text);
+    border-left-color: var(--accent-color);
+    font-weight: 600;
+}
+
+.sidebar-nav .nav-icon {
+    font-size: 1.3rem;
+}
+
+.sidebar-footer {
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-footer .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+.sidebar-footer .nav-link:hover {
+    color: var(--sidebar-text);
+}
+
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1; /* Allow main content to take remaining space */
+    background-color: var(--background-light);
+    padding: 0; /* Remove default padding as sections inside will have it */
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: var(--hero-bg);
+    color: white;
+    border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+    box-shadow: var(--shadow-light);
+    text-align: center; /* Center the welcome message */
+}
+
+.hero-section h1, .hero-section p.lead {
+    text-align: left; /* Align text left within the section */
+    max-width: 900px; /* Constrain width for better readability */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px; /* Adjust for container padding */
+    padding-right: 15px;
+}
+
+.hero-section .row {
+    max-width: 900px; /* Constrain width for stats/upload */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-stat-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    background-color: var(--card-bg);
+    min-height: 120px; /* Ensure consistent height for stat cards */
+}
+
+.hero-stat-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+/* Upload Card Specifics in Hero Section */
+.upload-card {
+    background-color: var(--primary-color) !important; /* Make upload card stand out */
+    color: white;
+    min-height: 120px; /* Ensure consistent height with stat cards */
+}
+
+.upload-card .upload-label {
+    border: 3px dashed rgba(255, 255, 255, 0.7); /* White dashed border */
+    color: white;
+    padding: 1rem; /* Adjust padding for smaller card */
+    font-size: 1rem; /* Smaller font for upload label */
+    border-radius: 10px;
+    height: 100%; /* Make label take full height of card body */
+}
+
+.upload-card .upload-label:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.upload-card .upload-icon {
+    font-size: 1.8rem;
+    color: white;
+}
+
+.upload-card .upload-text {
+    font-weight: 500;
+}
+
+
+/* General Card Styling (for document list) */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px);
+}
+
+/* Document Card Specifics */
+.doc-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.doc-icon-container {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.doc-icon {
+    color: var(--primary-color);
+}
+
+.doc-icon-image {
+    color: var(--accent-color);
+}
+
+.doc-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+}
+
+.doc-card .card-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.doc-card .btn-link {
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+}
+
+.doc-card .btn-link:hover {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.doc-card .btn-link.text-danger {
+    color: var(--accent-color);
+}
+
+.doc-card .btn-link.text-danger:hover {
+    color: #cc0000;
+}
+
+/* Alerts */
+.alert-info {
+    background-color: rgba(45, 155, 140, 0.1);
+    color: var(--primary-color);
+    border-color: rgba(45, 155, 140, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .sidebar {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    .sidebar-header .app-title {
+        font-size: 1.3rem;
+    }
+    .sidebar-nav .nav-link {
+        font-size: 1rem;
+        padding: 0.8rem 1rem;
+    }
+    .hero-section h1 {
+        font-size: 2.2rem;
+    }
+    .hero-section p.lead {
+        font-size: 1rem;
+    }
+    .hero-stat-icon {
+        font-size: 1.8rem;
+    }
+    .hero-stat-card .card-title {
+        font-size: 1.1rem !important;
+    }
+    .upload-card .upload-icon {
+        font-size: 1.5rem;
+    }
+    .upload-card .upload-text {
+        font-size: 0.9rem;
+    }
+    .doc-icon-container {
+        font-size: 3rem;
+    }
+    .doc-name {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative; /* Allow sidebar to stack on smaller screens */
+        min-width: 100%;
+        max-width: 100%;
+        height: auto;
+        box-shadow: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar .sidebar-header {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+    }
+    .sidebar .sidebar-header .logo {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+    .sidebar .sidebar-header .app-title {
+        font-size: 1.2rem;
+    }
+    .sidebar .sidebar-nav {
+        flex-direction: row; /* Horizontal nav for small screens */
+        justify-content: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .sidebar .sidebar-nav .nav-link {
+        border-left: none;
+        border-bottom: 3px solid transparent; /* Highlight bottom */
+        padding: 0.8rem 0.5rem;
+        text-align: center;
+        flex: 1; /* Distribute items evenly */
+        font-size: 0.9rem;
+    }
+    .sidebar .sidebar-nav .nav-link:hover,
+    .sidebar .sidebar-nav .nav-link.active {
+        border-bottom-color: var(--accent-color);
+        background-color: var(--sidebar-hover);
+    }
+    .sidebar .sidebar-nav .nav-icon {
+        font-size: 1rem;
+        margin-right: 5px !important;
+    }
+    .sidebar-footer {
+        display: none; /* Hide footer on very small screens */
+    }
+
+    .hero-section {
+        padding: 2rem 1rem;
+        border-radius: 0; /* No border radius when sidebar stacks */
+    }
+    .hero-section h1 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+    .hero-section p.lead {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    .hero-section .row {
+        flex-direction: column; /* Stack stats and upload vertically */
+    }
+    .hero-stat-card, .upload-card {
+        margin-bottom: 1rem;
+    }
+    .main-content .container-fluid {
+        padding: 1.5rem 1rem !important;
+    }
+    .doc-card {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 1.5rem;
+    }
+    .hero-section p.lead {
+        font-size: 0.85rem;
+    }
+    .hero-stat-card .card-title {
+        font-size: 1rem !important;
+    }
+    .hero-stat-card .card-text {
+        font-size: 0.8rem;
+    }
+    .upload-card .upload-text {
+        font-size: 0.8rem;
+    }
+    .doc-icon-container {
+        font-size: 2.5rem;
+    }
+    .doc-name {
+        font-size: 1rem;
+    }
+    .alert-info p {
+        font-size: 1rem !important;
+    }
+}

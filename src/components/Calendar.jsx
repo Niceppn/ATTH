@@ -29,7 +29,7 @@ const Calendar = () => {
             date: "2024-01-15",
             time: "09:00-12:00",
             location: "ธนาคารกรุงเทพ สาขาสีลม",
-            tester: "สมชาย ใจดี",
+            tester: "ทดสอบ ทดสอบ",
             client: "ธนาคารกรุงเทพ",
             type: "field",
             status: "confirmed",
@@ -41,7 +41,7 @@ const Calendar = () => {
             date: "2024-01-16",
             time: "13:00-17:00",
             location: "กรมการปกครอง กระทรวงมหาดไทย",
-            tester: "สมหญิง รักงาน",
+            tester: "ทดสอบ ทดสอบ",
             client: "กรมการปกครอง",
             type: "success",
             status: "pending",
@@ -53,7 +53,7 @@ const Calendar = () => {
             date: "2024-01-17",
             time: "10:00-15:00",
             location: "บริษัท เทคโนโลยี จำกัด",
-            tester: "วิชัย เก่งมาก",
+            tester: "ทดสอบ ทดสอบ",
             client: "บริษัท เทคโนโลยี จำกัด",
             type: "waite",
             status: "confirmed",
@@ -65,7 +65,7 @@ const Calendar = () => {
             date: "2024-01-18",
             time: "14:00-16:00",
             location: "สำนักงานใหญ่",
-            tester: "ทีมทดสอบ",
+            tester: "ทดสอบ ทดสอบ",
             client: "Internal",
             type: "training",
             status: "confirmed",
@@ -127,7 +127,7 @@ const Calendar = () => {
             case "training":
                 return <Badge bg="info">อื่นๆ</Badge>;
             default:
-                return <Badge bg="success">ทดสอบเสร้จเเล้ว</Badge>;
+                return <Badge bg="success">ทดสอบเสร็จเเล้ว</Badge>;
         }
     };
 

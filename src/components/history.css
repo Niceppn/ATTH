@@ -1,0 +1,89 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.activity-item {
+    border-left: 3px solid #007bff;
+    padding-left: 15px;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.activity-time {
+    color: #6c757d;
+    font-size: 0.9em;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+}
+
+.badge-primary {
+    background-color: #2124ea;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+}
+
+.filter-buttons .btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.search-box {
+    max-width: 400px;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 20px;
+}
+.activity-item {
+    border-left: 4px solid #0d6efd;
+    position: relative;
+    padding-left: 1rem;
+    transition: background 0.3s ease;
+}
+.activity-item:hover {
+    background-color: #f8f9fa;
+}
+.activity-item::before {
+    content: '';
+    position: absolute;
+    left: -0.5rem;
+    top: 1rem;
+    width: 10px;
+    height: 10px;
+    background: #0d6efd;
+    border-radius: 50%;
+}
