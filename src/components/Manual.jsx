@@ -26,37 +26,7 @@ const Manual = () => {
     return (
         <div>
             {/* Navigation */}
-            <nav className="navbar navbar-expand-lg  navbar-custom">
-                <div className="container">
-                    <a className="navbar-brand" href="#home">
-                        📖 คู่มือ WCAG
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item">
-                                <a className="nav-link" href="#introduction">📚 บทนำ</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#principles">🎯 หลักการ POUR</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#testing-methods">🔍 วิธีการทดสอบ</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#checklist">✅ Checklist</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#resources">🔗 แหล่งข้อมูล</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
-            <main style={{ paddingTop: '80px' }}>
+            <main>
                 {/* Hero Section */}
                 <section id="introduction" className="hero-section">
                     <div className="container">

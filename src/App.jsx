@@ -16,6 +16,7 @@ import UsageHistory from "./components/History";
 import SystemSettings from "./components/Setting";
 import Documents from "./components/document";
 import Manual from "./components/Manual";
+import Guide from "./components/guide";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/Sidebar.css";
@@ -52,7 +53,7 @@ function App() {
                   <Route path="/calendar" element={<Calendar/>} />
                   <Route path="/documents" element={<Documents/>} />
                   <Route path="/manual" element={<Manual/>} />
-                  <Route path="/guide" element={<div>แนวทาง</div>} />
+                  <Route path="/guide" element={<Guide/>} />
                   <Route path="/notifications" element={<div>แจ้งเตือน</div>} />
                   <Route path="/logout" element={<div>ออกจากระบบ</div>} />
                   <Route path="/setting" element={<SystemSettings />} />
