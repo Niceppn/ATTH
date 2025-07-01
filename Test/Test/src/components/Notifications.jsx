@@ -290,6 +290,21 @@ const Notifications = () => {
     }
   };
 
+  const getNotificationVariant = (type) => {
+    switch (type) {
+      case "warning":
+        return "warning";
+      case "info":
+        return "info";
+      case "success":
+        return "success";
+      case "error":
+        return "danger";
+      default:
+        return "primary";
+    }
+  };
+
   const getPriorityVariant = (priority) => {
     switch (priority) {
       case "สูง":
