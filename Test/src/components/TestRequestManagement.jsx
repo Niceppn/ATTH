@@ -201,21 +201,6 @@ const TestRequestManagement = () => {
     return "danger";
   };
 
-  const getStatusText = (type) => {
-    switch (type) {
-      case "total":
-        return "ทั้งหมด";
-      case "completed":
-        return "เสร็จสิ้น";
-      case "in-progress":
-        return "ดำเนินการ";
-      case "pending":
-        return "รอดำเนิน";
-      default:
-        return "ทั้งหมด";
-    }
-  };
-
   const handleRequestClick = (request) => {
     setSelectedRequest(request);
     setActiveTab("details");
@@ -401,13 +386,36 @@ const TestRequestManagement = () => {
               <Row className="align-items-end">
                 <Col md={4} className="mb-3">
                   <Form.Label>ค้นหาคำขอทดสอบ</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="ค้นหารหัส, ชื่อโครงการ, หรือลูกค้า..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input-custom"
-                  />
+                  <div className="search-bar-container">
+                    <Form.Control
+                      type="text"
+                      placeholder="ค้นหารหัส, ชื่อโครงการ, หรือลูกค้า..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="search-input-large"
+                      size="lg"
+                    />
+                    <Button
+                      variant="primary"
+                      className="search-button-modern"
+                      size="lg"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Button>
+                  </div>
                 </Col>
                 <Col md={3} className="mb-3">
                   <Form.Label>สถานะ</Form.Label>
@@ -480,71 +488,122 @@ const TestRequestManagement = () => {
           <Table responsive className="test-requests-table mb-0">
             <thead>
               <tr>
-                <th>รหัสคำขอ</th>
-                <th>โครงการ</th>
-                <th>ลูกค้า</th>
-                <th>ประเภทการทดสอบ</th>
-                <th>ผู้ทดสอบ</th>
-                <th>กำหนดส่ง</th>
-                <th>สถานะ</th>
-                <th>ความสำคัญ</th>
-                <th>ความคืบหน้า</th>
-                <th>การดำเนินการ</th>
+                <th style={{ width: "9%" }}>รหัสคำขอ</th>
+                <th style={{ width: "18%" }}>โครงการ</th>
+                <th style={{ width: "13%" }}>ลูกค้า</th>
+                <th style={{ width: "12%" }}>ประเภท</th>
+                <th style={{ width: "10%" }}>ผู้ทดสอบ</th>
+                <th style={{ width: "10%" }}>กำหนดส่ง</th>
+                <th style={{ width: "9%" }}>สถานะ</th>
+                <th style={{ width: "8%" }}>ความสำคัญ</th>
+                <th style={{ width: "8%" }}>คืบหน้า</th>
+                <th style={{ width: "6%" }}>ดู</th>
               </tr>
             </thead>
             <tbody>
               {filteredRequests.map((request) => (
                 <tr key={request.id} className="request-row">
                   <td>
-                    <div className="request-id">
-                      <strong>{request.id}</strong>
-                      <div className="request-date">{request.requestDate}</div>
+                    <div className="cell-2lines">
+                      <span className="cell-main">{request.id}</span>
+                      <span className="cell-sub">{request.requestDate}</span>
                     </div>
                   </td>
                   <td>
-                    <div className="project-info">
-                      <div className="project-title">{request.title}</div>
-                      <div className="project-description">
-                        {request.description.substring(0, 60)}...
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div className="client-name">{request.client}</div>
-                  </td>
-                  <td>
-                    <Badge bg="info" className="test-type-badge">
-                      {request.testType}
-                    </Badge>
-                  </td>
-                  <td>
-                    <div className="tester-name">{request.tester}</div>
-                  </td>
-                  <td>
-                    <div className="due-date">{request.dueDate}</div>
-                  </td>
-                  <td>{getStatusBadge(request.status)}</td>
-                  <td>{getPriorityBadge(request.priority)}</td>
-                  <td>
-                    <div className="progress-info">
-                      <ProgressBar
-                        now={request.progress}
-                        variant={getProgressColor(request.progress)}
-                        className="progress-bar-small"
-                      />
-                      <small className="progress-text">
-                        {request.progress}%
-                      </small>
-                    </div>
-                  </td>
-                  <td>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      onClick={() => handleRequestClick(request)}
+                    <div
+                      className="cell-2lines"
+                      style={{
+                        minWidth: 120,
+                        maxWidth: 220,
+                        whiteSpace: "normal",
+                      }}
                     >
-                      ดูรายละเอียด
-                    </Button>
+                      <span className="cell-main">{request.title}</span>
+                      <span className="cell-sub">
+                        {request.description.substring(0, 40)}...
+                      </span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">{request.client}</span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">{request.testType}</span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">{request.tester}</span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">{request.dueDate}</span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      className="cell-2lines"
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                    >
+                      <span className="cell-main">
+                        {getStatusBadge(request.status)}
+                      </span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">
+                        {getPriorityBadge(request.priority)}
+                      </span>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="cell-2lines">
+                      <span className="cell-main">
+                        <ProgressBar
+                          now={request.progress}
+                          variant={getProgressColor(request.progress)}
+                          className="progress-bar-small"
+                          style={{
+                            height: 8,
+                            borderRadius: 4,
+                            marginBottom: 2,
+                          }}
+                        />
+                      </span>
+                      <span className="cell-sub">{request.progress}%</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div
+                      className="cell-2lines"
+                      style={{ alignItems: "center" }}
+                    >
+                      <Button
+                        variant="outline-primary"
+                        size="sm"
+                        style={{
+                          width: "100%",
+                          borderRadius: 8,
+                          fontSize: 13,
+                          padding: "4px 0",
+                        }}
+                        onClick={() => handleRequestClick(request)}
+                      >
+                        ดูรายละเอียด
+                      </Button>
+                      <span className="cell-sub">&nbsp;</span>
+                    </div>
                   </td>
                 </tr>
               ))}

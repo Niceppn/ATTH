@@ -120,17 +120,17 @@ const Testers = () => {
       testSteps: [
         { id: 1, name: "ทดสอบการเข้าถึงด้วย Screen Reader", status: "pending" },
         { id: 2, name: "ทดสอบการนำทางด้วยคีย์บอร์ด", status: "pending" },
-        { id: 3, name: "ทดสอบความคมชัดของสี", status: "pending" }
-      ]
+        { id: 3, name: "ทดสอบความคมชัดของสี", status: "pending" },
+      ],
     },
     {
       id: "TR-2024-002",
       title: "การทดสอบ E-Government Portal",
       testSteps: [
         { id: 4, name: "ทดสอบการเข้าถึงตาม WCAG 2.1", status: "pending" },
-        { id: 5, name: "ทดสอบการทำงานบนหลายเบราว์เซอร์", status: "pending" }
-      ]
-    }
+        { id: 5, name: "ทดสอบการทำงานบนหลายเบราว์เซอร์", status: "pending" },
+      ],
+    },
   ];
 
   const departments = [
@@ -194,15 +194,20 @@ const Testers = () => {
               <Row className="align-items-end">
                 <Col md={6} className="mb-3">
                   <Form.Label>ค้นหาผู้ทดสอบ</Form.Label>
-                  <InputGroup>
+                  <div className="search-bar-container">
                     <Form.Control
                       type="text"
                       placeholder="ค้นหาชื่อ, อีเมล, หรือแผนก..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="search-input-custom"
+                      className="search-input-large"
+                      size="lg"
                     />
-                    <Button variant="outline-primary" className="search-btn">
+                    <Button
+                      variant="primary"
+                      className="search-button-modern"
+                      size="lg"
+                    >
                       <svg
                         width="20"
                         height="20"
@@ -219,7 +224,7 @@ const Testers = () => {
                         />
                       </svg>
                     </Button>
-                  </InputGroup>
+                  </div>
                 </Col>
                 <Col md={4} className="mb-3">
                   <Form.Label>แผนก</Form.Label>
@@ -511,7 +516,9 @@ const Testers = () => {
             <div className="assign-test-steps">
               <div className="tester-info mb-4">
                 <h6>ผู้ทดสอบ: {selectedTester.name}</h6>
-                <p className="text-muted mb-0">แผนก: {selectedTester.department}</p>
+                <p className="text-muted mb-0">
+                  แผนก: {selectedTester.department}
+                </p>
               </div>
 
               <Form.Group className="mb-4">
@@ -543,10 +550,13 @@ const Testers = () => {
                         checked={selectedTestSteps.includes(step.id)}
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setSelectedTestSteps([...selectedTestSteps, step.id]);
+                            setSelectedTestSteps([
+                              ...selectedTestSteps,
+                              step.id,
+                            ]);
                           } else {
                             setSelectedTestSteps(
-                              selectedTestSteps.filter((id) => id !== step.id)
+                              selectedTestSteps.filter((id) => id !== step.id),
                             );
                           }
                         }}

@@ -349,14 +349,35 @@ const UserPermissions = () => {
       {/* Statistics */}
       <Row className="mb-4">
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-teal">
-                  <span role="img" aria-label="users">👥</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-primary">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{users.length}</div>
+                <div className="stat-info">
+                  <div className="stat-value">{users.length}</div>
                   <div className="stat-label">ผู้ใช้ทั้งหมด</div>
                 </div>
               </div>
@@ -364,14 +385,49 @@ const UserPermissions = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-green">
-                  <span role="img" aria-label="roles">🔑</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-success">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="11"
+                      width="18"
+                      height="11"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="16"
+                      r="1"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{roles.length}</div>
+                <div className="stat-info">
+                  <div className="stat-value">{roles.length}</div>
                   <div className="stat-label">บทบาท</div>
                 </div>
               </div>
@@ -379,14 +435,37 @@ const UserPermissions = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-orange">
-                  <span role="img" aria-label="active-users">✅</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-info">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.7088 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4898 2.02168 11.3363C2.16356 9.18288 2.99721 7.13471 4.39828 5.49618C5.79935 3.85766 7.69279 2.71539 9.79619 2.24618C11.8996 1.77697 14.1003 1.98981 16.07 2.85999"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M22 4L12 14.01L9 11.01"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{users.filter((u) => u.status === "active").length}</div>
+                <div className="stat-info">
+                  <div className="stat-value">
+                    {users.filter((u) => u.status === "active").length}
+                  </div>
                   <div className="stat-label">ผู้ใช้ที่ใช้งาน</div>
                 </div>
               </div>
@@ -394,14 +473,54 @@ const UserPermissions = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-blue">
-                  <span role="img" aria-label="permissions">🛡️</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-warning">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="9"
+                      cy="9"
+                      r="2"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M21 15L16 10L5 21"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{allPermissions.reduce((total, cat) => total + cat.permissions.length, 0)}</div>
+                <div className="stat-info">
+                  <div className="stat-value">
+                    {allPermissions.reduce(
+                      (total, cat) => total + cat.permissions.length,
+                      0,
+                    )}
+                  </div>
                   <div className="stat-label">สิทธิ์ทั้งหมด</div>
                 </div>
               </div>
@@ -420,26 +539,50 @@ const UserPermissions = () => {
         <Tab eventKey="users" title="ผู้ใช้งาน">
           {/* Search and Filter */}
           <Row className="mb-4">
-            <Col lg={9}>
+            <Col lg={8}>
               <Card className="filter-card">
                 <Card.Body>
                   <Row className="align-items-end">
-                    <Col md={6} className="mb-3">
+                    <Col md={8} className="mb-3">
                       <Form.Label>ค้นหาผู้ใช้</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="ค้นหาชื่อ, username, หรืออีเมล..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="search-input-custom"
-                      />
+                      <div className="search-bar-container">
+                        <Form.Control
+                          type="text"
+                          placeholder="ค้นหาชื่อ, username, หรืออีเมล..."
+                          value={searchTerm}
+                          onChange={(e) => setSearchTerm(e.target.value)}
+                          className="search-input-large"
+                          size="lg"
+                        />
+                        <Button
+                          variant="primary"
+                          className="search-button-modern"
+                          size="lg"
+                        >
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <path
+                              d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </Button>
+                      </div>
                     </Col>
                     <Col md={4} className="mb-3">
                       <Form.Label>บทบาท</Form.Label>
                       <Form.Select
                         value={selectedRole}
                         onChange={(e) => setSelectedRole(e.target.value)}
-                        className="form-select-custom"
+                        className="form-select-large"
+                        size="lg"
                       >
                         <option value="all">ทุกบทบาท</option>
                         {roles.map((role) => (
@@ -449,24 +592,22 @@ const UserPermissions = () => {
                         ))}
                       </Form.Select>
                     </Col>
-                    <Col md={2} className="mb-3">
-                      <Button
-                        variant="primary"
-                        className="w-100"
-                        onClick={() => handleAddNew("user")}
-                      >
-                        เพิ่มผู้ใช้
-                      </Button>
-                    </Col>
                   </Row>
                 </Card.Body>
               </Card>
             </Col>
-            <Col lg={3}>
+            <Col lg={4}>
               <Card className="quick-actions-card">
                 <Card.Body>
                   <h6>การดำเนินการด่วน</h6>
                   <div className="quick-actions">
+                    <Button
+                      variant="primary"
+                      className="w-100 mb-2"
+                      onClick={() => handleAddNew("user")}
+                    >
+                      เพิ่มผู้ใช้
+                    </Button>
                     <Button
                       variant="outline-warning"
                       size="sm"
@@ -526,10 +667,7 @@ const UserPermissions = () => {
                           >
                             แก้ไข
                           </Button>
-                          <Button
-                            variant="outline-warning"
-                            size="sm"
-                          >
+                          <Button variant="outline-warning" size="sm">
                             รีเซ็ต
                           </Button>
                         </div>

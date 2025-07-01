@@ -240,9 +240,9 @@ const ProjectSelection = ({ onProjectSelect }) => {
     <Container fluid className="project-selection-container">
       <div className="project-selection-content">
         <div className="project-selection-header">
-          <h2 className="project-selection-title">คำขอทดสอบทั้งหมด</h2>
+          <h2 className="project-selection-title">โครงการทั้งหมด</h2>
           <p className="project-selection-subtitle">
-            เลือกโครงการที่ต้องการดูผลการทดสอบรายละเอียด
+            เลือกโครงการเพื่อดูเอกสารและไฟล์ของโครงการนั้น
           </p>
         </div>
 
@@ -334,7 +334,7 @@ const ProjectSelection = ({ onProjectSelect }) => {
           <div className="footer-info">
             <p className="footer-text">
               💡 <strong>คำแนะนำ:</strong>{" "}
-              เลือกโครงการเพื่อดูผลการทดสอบแต่ละรายการและรายละเอียดที่ครบถ้วน
+              เลือกโครงการเพื่อดูเอกสารและไฟล์ของแต่ละโครงการ
             </p>
           </div>
         </div>

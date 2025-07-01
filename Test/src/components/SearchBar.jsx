@@ -16,21 +16,43 @@ const SearchBar = ({ onSearch, placeholder = "ค้นหา..." }) => {
   };
 
   return (
-    <div style={{ width: "300px" }}>
-      <InputGroup>
+    <div style={{ width: "100%" }}>
+      <div className="search-bar-container">
         <Form.Control
           type="text"
           placeholder={placeholder}
           value={searchTerm}
           onChange={handleInputChange}
           aria-label="Search test cases"
-          className="search-input-custom"
+          className="search-input-large"
+          size="lg"
         />
+        <Button variant="primary" className="search-button-modern" size="lg">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Button>
         {searchTerm && (
           <Button
-            className="search-clear-btn-custom"
+            variant="outline-secondary"
+            className="search-clear-button"
             onClick={handleClear}
             aria-label="Clear search"
+            style={{
+              position: "absolute",
+              right: "50px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              border: "none",
+              background: "transparent",
+              padding: "0.25rem",
+            }}
           >
             <svg
               width="16"
@@ -46,7 +68,7 @@ const SearchBar = ({ onSearch, placeholder = "ค้นหา..." }) => {
             </svg>
           </Button>
         )}
-      </InputGroup>
+      </div>
     </div>
   );
 };

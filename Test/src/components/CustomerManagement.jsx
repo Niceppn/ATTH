@@ -265,14 +265,41 @@ const CustomerManagement = () => {
       {/* Customer Stats */}
       <Row className="mb-4">
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-teal">
-                  <span role="img" aria-label="customer">👥</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-primary">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="7"
+                      width="18"
+                      height="13"
+                      rx="2"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{customers.length}</div>
+                <div className="stat-info">
+                  <div className="stat-value">{customers.length}</div>
                   <div className="stat-label">ลูกค้าทั้งหมด</div>
                 </div>
               </div>
@@ -280,14 +307,62 @@ const CustomerManagement = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-green">
-                  <span role="img" aria-label="contract">📋</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-success">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <polyline
+                      points="14,2 14,8 20,8"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <line
+                      x1="16"
+                      y1="13"
+                      x2="8"
+                      y2="13"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <line
+                      x1="16"
+                      y1="17"
+                      x2="8"
+                      y2="17"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <polyline
+                      points="10,9 9,9 8,9"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">{activeContracts}</div>
+                <div className="stat-info">
+                  <div className="stat-value">{activeContracts}</div>
                   <div className="stat-label">สัญญาใช้งาน</div>
                 </div>
               </div>
@@ -295,14 +370,35 @@ const CustomerManagement = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-orange">
-                  <span role="img" aria-label="revenue">💰</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-warning">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 1V23"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6312 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6312 13.6815 18 14.5717 18 15.5C18 16.4283 17.6312 17.3185 16.9749 17.9749C16.3185 18.6312 15.4283 19 14.5 19H6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">
+                <div className="stat-info">
+                  <div className="stat-value">
                     {(totalRevenue / 1000000).toFixed(1)}M
                   </div>
                   <div className="stat-label">มูลค่าสัญญา (บาท)</div>
@@ -312,14 +408,28 @@ const CustomerManagement = () => {
           </Card>
         </Col>
         <Col lg={3} md={6} className="mb-3">
-          <Card className="stat-card">
+          <Card className="stat-card h-100">
             <Card.Body>
-              <div className="stat-content-horizontal">
-                <div className="stat-icon-circle bg-blue">
-                  <span role="img" aria-label="satisfaction">⭐</span>
+              <div className="stat-card-content">
+                <div className="stat-icon stat-icon-info">
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <polygon
+                      points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                 </div>
-                <div>
-                  <div className="stat-number">4.7</div>
+                <div className="stat-info">
+                  <div className="stat-value">4.7</div>
                   <div className="stat-label">ความพึงพอใจเฉลี่ย</div>
                 </div>
               </div>
@@ -330,26 +440,50 @@ const CustomerManagement = () => {
 
       {/* Search and Filter */}
       <Row className="mb-4">
-        <Col lg={9}>
+        <Col lg={8}>
           <Card className="filter-card">
             <Card.Body>
               <Row className="align-items-end">
-                <Col md={6} className="mb-3">
+                <Col md={8} className="mb-3">
                   <Form.Label>ค้นหาลูกค้า</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="ค้นหาชื่อบริษัท, ชื่อย่อ, หรือผู้ติดต่อ..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="search-input-custom"
-                  />
+                  <div className="search-bar-container">
+                    <Form.Control
+                      type="text"
+                      placeholder="ค้นหาชื่อบริษัท, ชื่อย่อ, หรือผู้ติดต่อ..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="search-input-large"
+                      size="lg"
+                    />
+                    <Button
+                      variant="primary"
+                      className="search-button-modern"
+                      size="lg"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </Button>
+                  </div>
                 </Col>
                 <Col md={4} className="mb-3">
                   <Form.Label>ประเภทลูกค้า</Form.Label>
                   <Form.Select
                     value={selectedType}
                     onChange={(e) => setSelectedType(e.target.value)}
-                    className="form-select-custom"
+                    className="form-select-large"
+                    size="lg"
                   >
                     {customerTypes.map((type) => (
                       <option key={type.value} value={type.value}>
@@ -358,24 +492,22 @@ const CustomerManagement = () => {
                     ))}
                   </Form.Select>
                 </Col>
-                <Col md={2} className="mb-3">
-                  <Button
-                    variant="primary"
-                    className="w-100"
-                    onClick={() => setShowAddModal(true)}
-                  >
-                    เพิ่มลูกค้า
-                  </Button>
-                </Col>
               </Row>
             </Card.Body>
           </Card>
         </Col>
-        <Col lg={3}>
+        <Col lg={4}>
           <Card className="quick-actions-card">
             <Card.Body>
               <h6>การดำเนินการด่วน</h6>
               <div className="quick-actions">
+                <Button
+                  variant="primary"
+                  className="w-100 mb-2"
+                  onClick={() => setShowAddModal(true)}
+                >
+                  เพิ่มลูกค้า
+                </Button>
                 <Button
                   variant="outline-primary"
                   size="sm"

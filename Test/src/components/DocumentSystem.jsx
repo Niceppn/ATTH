@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   Card,
   Row,
@@ -11,14 +11,17 @@ import {
   ProgressBar,
   Dropdown,
   InputGroup,
+  Breadcrumb,
 } from "react-bootstrap";
 
 const DocumentSystem = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [viewMode, setViewMode] = useState("grid");
+  const [viewMode] = useState("grid");
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [currentView, setCurrentView] = useState("folders"); // "folders" or "files"
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Sample documents data
   const documents = [
@@ -100,7 +103,122 @@ const DocumentSystem = () => {
       downloads: 7,
       status: "approved",
     },
+    {
+      id: 7,
+      name: "เอกสารการติดตั้ง Mobile Banking",
+      type: "PDF",
+      size: "1.8 MB",
+      uploadDate: "2024-01-14",
+      category: "forms",
+      project: "Mobile Banking App",
+      uploader: "สมชาย ใจดี",
+      thumbnail: "📄",
+      downloads: 9,
+      status: "approved",
+    },
+    {
+      id: 8,
+      name: "ภาพหน้าจอ E-Commerce",
+      type: "PNG",
+      size: "2.1 MB",
+      uploadDate: "2024-01-13",
+      category: "screenshots",
+      project: "E-Commerce Platform",
+      uploader: "สมหญิง รักงาน",
+      thumbnail: "🖼️",
+      downloads: 12,
+      status: "approved",
+    },
+    {
+      id: 9,
+      name: "คู่มือผู้ใช้ Government Portal",
+      type: "DOCX",
+      size: "4.2 MB",
+      uploadDate: "2024-01-12",
+      category: "forms",
+      project: "Government Portal",
+      uploader: "วิชัย เก่งมาก",
+      thumbnail: "📝",
+      downloads: 18,
+      status: "approved",
+    },
+    {
+      id: 10,
+      name: "รายงานการทดสอบ Healthcare",
+      type: "PDF",
+      size: "3.1 MB",
+      uploadDate: "2024-01-11",
+      category: "reports",
+      project: "Healthcare System",
+      uploader: "นุชนาฏ ใส่ใจ",
+      thumbnail: "📄",
+      downloads: 25,
+      status: "approved",
+    },
   ];
+
+  // Group documents by project to create folder structure
+  const projectFolders = useMemo(() => {
+    const folders = {};
+    documents.forEach((doc) => {
+      if (!folders[doc.project]) {
+        folders[doc.project] = {
+          name: doc.project,
+          files: [],
+          totalSize: 0,
+          fileCount: 0,
+          lastModified: doc.uploadDate,
+        };
+      }
+      folders[doc.project].files.push(doc);
+      folders[doc.project].fileCount++;
+
+      // Calculate total size (simplified calculation)
+      const size = parseFloat(doc.size.split(" ")[0]);
+      const unit = doc.size.split(" ")[1];
+      const bytes = unit === "MB" ? size * 1024 * 1024 : size * 1024;
+      folders[doc.project].totalSize += bytes;
+
+      // Update last modified date
+      if (doc.uploadDate > folders[doc.project].lastModified) {
+        folders[doc.project].lastModified = doc.uploadDate;
+      }
+    });
+    return Object.values(folders);
+  }, [documents]);
+
+  // Get current data to display based on view mode
+  const getCurrentData = () => {
+    if (currentView === "folders") {
+      return projectFolders.filter((folder) =>
+        folder.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+    } else {
+      const projectFiles = documents.filter(
+        (doc) => doc.project === selectedProject,
+      );
+      return projectFiles.filter((doc) => {
+        const matchesSearch = doc.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+        const matchesCategory =
+          selectedCategory === "all" || doc.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+    }
+  };
+
+  const handleFolderClick = (projectName) => {
+    setSelectedProject(projectName);
+    setCurrentView("files");
+  };
+
+  const handleBackToFolders = () => {
+    setCurrentView("folders");
+    setSelectedProject(null);
+    setSearchTerm("");
+    setSelectedCategory("all");
+  };
 
   const categories = [
     { value: "all", label: "ทั้งหมด", count: documents.length },
@@ -136,14 +254,7 @@ const DocumentSystem = () => {
     },
   ];
 
-  const filteredDocuments = documents.filter((doc) => {
-    const matchesSearch =
-      doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      doc.project.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "all" || doc.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const currentData = getCurrentData();
 
   const getFileTypeIcon = (type) => {
     switch (type.toLowerCase()) {
@@ -219,6 +330,20 @@ const DocumentSystem = () => {
         </p>
       </div>
 
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb className="mb-4">
+        <Breadcrumb.Item
+          active={currentView === "folders"}
+          onClick={currentView === "files" ? handleBackToFolders : undefined}
+          style={{ cursor: currentView === "files" ? "pointer" : "default" }}
+        >
+          โฟลเดอร์โครงการ
+        </Breadcrumb.Item>
+        {currentView === "files" && (
+          <Breadcrumb.Item active>{selectedProject}</Breadcrumb.Item>
+        )}
+      </Breadcrumb>
+
       {/* Storage Stats */}
       <Row className="mb-4">
         <Col lg={3} md={6} className="mb-3">
@@ -226,15 +351,51 @@ const DocumentSystem = () => {
             <Card.Body>
               <div className="stat-card-content">
                 <div className="stat-icon stat-icon-primary">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="7"
+                      width="18"
+                      height="13"
+                      rx="2"
+                      fill="#E6F4EA"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      fill="#34A853"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      stroke="#34A853"
+                      strokeWidth="2"
+                    />
                   </svg>
                 </div>
                 <div className="stat-info">
-                  <div className="stat-value">{documents.length}</div>
-                  <div className="stat-label">ไฟล์ทั้งหมด</div>
+                  <div className="stat-value">
+                    {currentView === "folders"
+                      ? projectFolders.length
+                      : currentData.length}
+                  </div>
+                  <div className="stat-label">
+                    {currentView === "folders"
+                      ? "โฟลเดอร์โครงการ"
+                      : "ไฟล์ในโครงการ"}
+                  </div>
                 </div>
               </div>
             </Card.Body>
@@ -245,10 +406,38 @@ const DocumentSystem = () => {
             <Card.Body>
               <div className="stat-card-content">
                 <div className="stat-icon stat-icon-success">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#E6F4EA"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#34A853"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#34A853" strokeWidth="2"/>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="7"
+                      width="18"
+                      height="13"
+                      rx="2"
+                      fill="#E6F4EA"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      fill="#34A853"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      stroke="#34A853"
+                      strokeWidth="2"
+                    />
                   </svg>
                 </div>
                 <div className="stat-info">
@@ -264,13 +453,31 @@ const DocumentSystem = () => {
             <Card.Body>
               <div className="stat-card-content">
                 <div className="stat-icon stat-icon-info">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" fill="#E8F0FE"/>
-                    <rect x="10" y="7" width="4" height="8" rx="2" fill="#4285F4"/>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="12" cy="12" r="10" fill="#E8F0FE" />
+                    <rect
+                      x="10"
+                      y="7"
+                      width="4"
+                      height="8"
+                      rx="2"
+                      fill="#4285F4"
+                    />
                   </svg>
                 </div>
                 <div className="stat-info">
-                  <div className="stat-value">{documents.filter((d) => d.uploadDate === "2024-01-15").length}</div>
+                  <div className="stat-value">
+                    {
+                      documents.filter((d) => d.uploadDate === "2024-01-15")
+                        .length
+                    }
+                  </div>
                   <div className="stat-label">อัปโหลดวันนี้</div>
                 </div>
               </div>
@@ -282,14 +489,44 @@ const DocumentSystem = () => {
             <Card.Body>
               <div className="stat-card-content">
                 <div className="stat-icon stat-icon-warning">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="7" width="18" height="13" rx="2" fill="#FFF4E5"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" fill="#FBBC05"/>
-                    <rect x="7" y="3" width="10" height="4" rx="1" stroke="#FBBC05" strokeWidth="2"/>
+                  <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="3"
+                      y="7"
+                      width="18"
+                      height="13"
+                      rx="2"
+                      fill="#FFF4E5"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      fill="#FBBC05"
+                    />
+                    <rect
+                      x="7"
+                      y="3"
+                      width="10"
+                      height="4"
+                      rx="1"
+                      stroke="#FBBC05"
+                      strokeWidth="2"
+                    />
                   </svg>
                 </div>
                 <div className="stat-info">
-                  <div className="stat-value">{documents.filter((d) => d.status === "pending").length}</div>
+                  <div className="stat-value">
+                    {documents.filter((d) => d.status === "pending").length}
+                  </div>
                   <div className="stat-label">รออนุมัติ</div>
                 </div>
               </div>
@@ -305,17 +542,33 @@ const DocumentSystem = () => {
             <Card.Body>
               <Row className="align-items-end">
                 <Col md={6} className="mb-3">
-                  <Form.Label>ค้นหาไฟล์</Form.Label>
-                  <InputGroup>
+                  <Form.Label>
+                    {currentView === "folders" ? "ค้นหาโครงการ" : "ค้นหาไฟล์"}
+                  </Form.Label>
+                  <div className="search-bar-container">
                     <Form.Control
                       type="text"
-                      placeholder="ค้นหาชื่อไฟล์หรือโครงการ..."
+                      placeholder={
+                        currentView === "folders"
+                          ? "ค้นหาชื่อโครงการ..."
+                          : "ค้นหาชื่อไฟล์..."
+                      }
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="search-input-custom"
+                      className="search-input-large"
+                      size="lg"
                     />
-                    <Button variant="outline-primary" className="search-btn">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <Button
+                      variant="primary"
+                      className="search-button-modern"
+                      size="lg"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
                         <path
                           d="M21 21L15.803 15.803M15.803 15.803C17.2096 14.3964 18 12.4887 18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C12.4887 18 14.3964 17.2096 15.803 15.803Z"
                           stroke="currentColor"
@@ -325,30 +578,50 @@ const DocumentSystem = () => {
                         />
                       </svg>
                     </Button>
-                  </InputGroup>
+                  </div>
                 </Col>
-                <Col md={4} className="mb-3">
-                  <Form.Label>หมวดหมู่</Form.Label>
-                  <Form.Select
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="form-select-custom"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label} ({cat.count})
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Col>
-                <Col md={2} className="mb-3">
-                  <Button
-                    variant="primary"
-                    className="w-100"
-                    onClick={() => setShowUploadModal(true)}
-                  >
-                    อัปโหลดไฟล์
-                  </Button>
+                {currentView === "files" && (
+                  <Col md={4} className="mb-3">
+                    <Form.Label>หมวดหมู่</Form.Label>
+                    <Form.Select
+                      value={selectedCategory}
+                      onChange={(e) => setSelectedCategory(e.target.value)}
+                      className="form-select-custom"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat.value} value={cat.value}>
+                          {cat.label} ({cat.count})
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </Col>
+                )}
+                <Col md={currentView === "files" ? 2 : 6} className="mb-3">
+                  {currentView === "files" ? (
+                    <Button
+                      variant="primary"
+                      className="w-100"
+                      onClick={() => setShowUploadModal(true)}
+                    >
+                      อัปโหลดไฟล์
+                    </Button>
+                  ) : (
+                    <div className="d-flex gap-2">
+                      <Button
+                        variant="outline-primary"
+                        onClick={handleBackToFolders}
+                        disabled={currentView === "folders"}
+                      >
+                        ดูแบบโฟลเดอร์
+                      </Button>
+                      <Button
+                        variant="primary"
+                        onClick={() => setShowUploadModal(true)}
+                      >
+                        อัปโหลดไฟล์
+                      </Button>
+                    </div>
+                  )}
                 </Col>
               </Row>
             </Card.Body>
@@ -374,15 +647,126 @@ const DocumentSystem = () => {
       {/* Documents Display */}
       <Card className="documents-card">
         <Card.Header className="card-header-documents">
-          <h5 className="card-title">เอกสารและไฟล์</h5>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            {currentView === "files" && (
+              <Button
+                variant="outline-primary"
+                size="sm"
+                onClick={handleBackToFolders}
+                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+              >
+                ← กลับ
+              </Button>
+            )}
+            <h5 className="card-title" style={{ margin: 0 }}>
+              {currentView === "folders"
+                ? "โฟลเดอร์โครงการ"
+                : `ไฟล์ในโครงการ: ${selectedProject}`}
+            </h5>
+          </div>
           <div className="results-count">
-            แสดง {filteredDocuments.length} จาก {documents.length} ไฟล์
+            แสดง {currentData.length} จาก{" "}
+            {currentView === "folders"
+              ? projectFolders.length
+              : documents.filter((d) => d.project === selectedProject)
+                  .length}{" "}
+            {currentView === "folders" ? "โฟลเดอร์" : "ไฟล์"}
           </div>
         </Card.Header>
         <Card.Body className="p-0">
-          {viewMode === "grid" ? (
+          {currentData.length === 0 ? (
+            <div
+              className="empty-state"
+              style={{ padding: "4rem 2rem", textAlign: "center" }}
+            >
+              <div
+                style={{ fontSize: "4rem", marginBottom: "1rem", opacity: 0.3 }}
+              >
+                {currentView === "folders" ? "📁" : "📄"}
+              </div>
+              <h5
+                style={{
+                  color: "var(--text-secondary)",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {currentView === "folders"
+                  ? "ไม่พบโฟลเดอร์โครงการ"
+                  : "ไม่มีไฟล์ในโครงการนี้"}
+              </h5>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+                {currentView === "folders"
+                  ? "เริ่มต้นด้วยการอัปโหลดไฟล์และจัดกลุ่มตามโครงการ"
+                  : "อัปโหลดไฟล์เพื่อเริ่มใช้งานระบบจัดเก็บเอกสาร"}
+              </p>
+              <Button
+                variant="primary"
+                onClick={() => setShowUploadModal(true)}
+                style={{ marginTop: "1rem" }}
+              >
+                อัปโหลดไฟล์แรก
+              </Button>
+            </div>
+          ) : currentView === "folders" ? (
             <div className="documents-grid">
-              {filteredDocuments.map((doc) => (
+              {currentData.map((folder) => (
+                <div
+                  key={folder.name}
+                  className="document-card folder-card"
+                  onClick={() => handleFolderClick(folder.name)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <div className="document-thumbnail">
+                    <div className="file-icon folder-icon">📁</div>
+                    <div className="file-count-badge">
+                      {folder.fileCount} ไฟล์
+                    </div>
+                  </div>
+                  <div className="document-info">
+                    <h6 className="document-name" title={folder.name}>
+                      {folder.name.length > 25
+                        ? folder.name.substring(0, 25) + "..."
+                        : folder.name}
+                    </h6>
+                    <div className="document-meta">
+                      <div className="document-size">
+                        {getFileSize(folder.totalSize)}
+                      </div>
+                      <div className="document-date">
+                        แก้ไขล่าสุด: {folder.lastModified}
+                      </div>
+                    </div>
+                    <div className="document-project">
+                      {folder.fileCount} ไฟล์
+                    </div>
+                    <div className="document-footer">
+                      <Badge bg="primary">โครงการ</Badge>
+                      <Dropdown onClick={(e) => e.stopPropagation()}>
+                        <Dropdown.Toggle variant="outline-secondary" size="sm">
+                          ⋮
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            onClick={() => handleFolderClick(folder.name)}
+                          >
+                            เปิดโฟลเดอร์
+                          </Dropdown.Item>
+                          <Dropdown.Item>แชร์โครงการ</Dropdown.Item>
+                          <Dropdown.Item>ดาวน์โหลดทั้งหมด</Dropdown.Item>
+                          <Dropdown.Divider />
+                          <Dropdown.Item className="text-danger">
+                            ลบโครงการ
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : viewMode === "grid" ? (
+            <div className="documents-grid">
+              {currentData.map((doc) => (
                 <div key={doc.id} className="document-card">
                   <div className="document-thumbnail">
                     <div className="file-icon">{getFileTypeIcon(doc.type)}</div>
@@ -398,7 +782,7 @@ const DocumentSystem = () => {
                       <div className="document-size">{doc.size}</div>
                       <div className="document-date">{doc.uploadDate}</div>
                     </div>
-                    <div className="document-project">{doc.project}</div>
+                    <div className="document-project">{doc.uploader}</div>
                     <div className="document-footer">
                       {getStatusBadge(doc.status)}
                       <Dropdown>
@@ -427,7 +811,6 @@ const DocumentSystem = () => {
                   <th>ชื่อไฟล์</th>
                   <th>ประเภท</th>
                   <th>ขนาด</th>
-                  <th>โครงการ</th>
                   <th>ผู้อัปโหลด</th>
                   <th>วันที่</th>
                   <th>ดาวน์โหลด</th>
@@ -436,7 +819,7 @@ const DocumentSystem = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredDocuments.map((doc) => (
+                {currentData.map((doc) => (
                   <tr key={doc.id}>
                     <td>
                       <div className="file-name">
@@ -450,7 +833,6 @@ const DocumentSystem = () => {
                       <Badge bg="secondary">{doc.type}</Badge>
                     </td>
                     <td>{doc.size}</td>
-                    <td>{doc.project}</td>
                     <td>{doc.uploader}</td>
                     <td>{doc.uploadDate}</td>
                     <td>{doc.downloads}</td>
