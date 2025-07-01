@@ -1,4 +1,8 @@
 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 1a6a0b2a607450867e9ec84861c13c9b4ddd9732
   "name": "test",
   "private": true,
   "version": "0.0.0",
@@ -26,5 +30,33 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.1"
+<<<<<<< HEAD
+=======
+=======
+  "name": "atth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niceppn/ATTH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Niceppn/ATTH/issues"
+  },
+  "homepage": "https://github.com/Niceppn/ATTH#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.6"
+>>>>>>> 8123da33d92c0a489dd1fc893e265fc86e56cde1
+>>>>>>> 1a6a0b2a607450867e9ec84861c13c9b4ddd9732
   }
 }

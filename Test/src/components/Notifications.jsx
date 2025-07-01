@@ -290,6 +290,7 @@ const Notifications = () => {
     }
   };
 
+<<<<<<< HEAD
   const getNotificationVariant = (type) => {
     switch (type) {
       case "warning":
@@ -305,6 +306,8 @@ const Notifications = () => {
     }
   };
 
+=======
+>>>>>>> 1a6a0b2a607450867e9ec84861c13c9b4ddd9732
   const getPriorityVariant = (priority) => {
     switch (priority) {
       case "สูง":
