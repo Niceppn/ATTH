@@ -201,21 +201,6 @@ const TestRequestManagement = () => {
     return "danger";
   };
 
-  const getStatusText = (type) => {
-    switch (type) {
-      case "total":
-        return "ทั้งหมด";
-      case "completed":
-        return "เสร็จสิ้น";
-      case "in-progress":
-        return "ดำเนินการ";
-      case "pending":
-        return "รอดำเนิน";
-      default:
-        return "ทั้งหมด";
-    }
-  };
-
   const handleRequestClick = (request) => {
     setSelectedRequest(request);
     setActiveTab("details");
