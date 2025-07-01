@@ -21,7 +21,6 @@ import DocumentSystem from "./components/DocumentSystem";
 import CustomerManagement from "./components/CustomerManagement";
 import SystemSettings from "./components/SystemSettings";
 import UserPermissions from "./components/UserPermissions";
-import { testCases } from "./data/testCases";
 import { AuthProvider } from "./context/AuthContext";
 import "./App.css";
 
